@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这篇文章主要记录一下第188场周赛的题目解答。以下是四个题目：  用栈操作构建数组: 3分 形成两个异或相等数组的三元组数目: 4分 收集树上所有苹果的最少时间: 5分 切披萨的方案数: 7分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="力扣周赛188">
+<meta property="og:url" content="http://yoursite.com/2020/05/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B188/index.html">
+<meta property="og:site_name" content="Koala Xu的随笔">
+<meta property="og:description" content="这篇文章主要记录一下第188场周赛的题目解答。以下是四个题目：  用栈操作构建数组: 3分 形成两个异或相等数组的三元组数目: 4分 收集树上所有苹果的最少时间: 5分 切披萨的方案数: 7分">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/05/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B188/min_time_collect_apple_1.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B188/min_time_collect_apple_2.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B188/ways_to_cut_apple_1.png">
+<meta property="article:published_time" content="2020-05-10T06:13:29.000Z">
+<meta property="article:modified_time" content="2020-05-10T09:47:11.238Z">
+<meta property="article:author" content="Koala Xu">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="力扣">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/05/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B188/min_time_collect_apple_1.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B188/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>力扣周赛188 | Koala Xu的随笔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Koala Xu的随笔</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Show Me Your Code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B188/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Koala Xu">
+      <meta itemprop="description" content="博观而约取，厚积而博发">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Koala Xu的随笔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          力扣周赛188
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-10 14:13:29 / 修改时间：17:47:11" itemprop="dateCreated datePublished" datetime="2020-05-10T14:13:29+08:00">2020-05-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">力扣周赛</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这篇文章主要记录一下第188场周赛的题目解答。以下是四个题目：</p>
+<ol>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-188/problems/build-an-array-with-stack-operations/" target="_blank" rel="noopener">用栈操作构建数组</a>: 3分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-188/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/" target="_blank" rel="noopener">形成两个异或相等数组的三元组数目</a>: 4分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-188/problems/minimum-time-to-collect-all-apples-in-a-tree/" target="_blank" rel="noopener">收集树上所有苹果的最少时间</a>: 5分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-188/problems/number-of-ways-of-cutting-a-pizza/" target="_blank" rel="noopener">切披萨的方案数</a>: 7分</li>
+</ol>
+<a id="more"></a>
+<h3 id="用栈操作构建数组"><a href="#用栈操作构建数组" class="headerlink" title="用栈操作构建数组"></a><a href="https://leetcode-cn.com/contest/weekly-contest-188/problems/build-an-array-with-stack-operations/" target="_blank" rel="noopener">用栈操作构建数组</a></h3><h4 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h4><p>给你一个目标数组 <code>target</code> 和一个整数 <code>n</code>。每次迭代，需要从 <code>list = {1,2,3..., n}</code> 中依序读取一个数字。</p>
+<p>请使用下述操作来构建目标数组 <code>target</code> ：</p>
+<ul>
+<li><strong>Push</strong>：从 <code>list</code> 中读取一个新元素， 并将其推入数组中。</li>
+<li><strong>Pop</strong>：删除数组中的最后一个元素。</li>
+<li>如果目标数组构建完成，就停止读取更多元素。</li>
+</ul>
+<p>题目数据保证目标数组严格递增，并且只包含 <code>1</code> 到 <code>n</code> 之间的数字。</p>
+<p>请返回构建目标数组所用的操作序列。</p>
+<p>题目数据保证答案是唯一的。</p>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">输入：target &#x3D; [1,3], n &#x3D; 3</span><br><span class="line">输出：[&quot;Push&quot;,&quot;Push&quot;,&quot;Pop&quot;,&quot;Push&quot;]</span><br><span class="line">解释： </span><br><span class="line">读取 1 并自动推入数组 -&gt; [1]</span><br><span class="line">读取 2 并自动推入数组，然后删除它 -&gt; [1]</span><br><span class="line">读取 3 并自动推入数组 -&gt; [1,3]</span><br><span class="line"></span><br><span class="line">输入：target &#x3D; [1,2,3], n &#x3D; 3</span><br><span class="line">输出：[&quot;Push&quot;,&quot;Push&quot;,&quot;Push&quot;]</span><br><span class="line"></span><br><span class="line">输入：target &#x3D; [1,2], n &#x3D; 4</span><br><span class="line">输出：[&quot;Push&quot;,&quot;Push&quot;]</span><br><span class="line">解释：只需要读取前 2 个数字就可以停止。</span><br><span class="line"></span><br><span class="line">输入：target &#x3D; [2,3,4], n &#x3D; 4</span><br><span class="line">输出：[&quot;Push&quot;,&quot;Pop&quot;,&quot;Push&quot;,&quot;Push&quot;,&quot;Push&quot;]</span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; target.length &lt;&#x3D; 100</span><br><span class="line">1 &lt;&#x3D; target[i] &lt;&#x3D; 100</span><br><span class="line">1 &lt;&#x3D; n &lt;&#x3D; 100</span><br><span class="line">target 是严格递增的</span><br></pre></td></tr></table></figure>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>从<code>List</code>中拿出元素必须是<code>{1,2,3...n}</code>的顺序，当拿出的元素不是需要的元素时，需要执行<code>Push</code>与<code>Pop</code>两个操作，当是需要的元素时，只执行<code>Push</code>操作，并且考虑下一个要拿出元素。</p>
+<h4 id="实现示例"><a href="#实现示例" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">buildArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; target, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line">        <span class="keyword">int</span> tn = target.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> item = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;tn;i++)&#123;</span><br><span class="line">            <span class="keyword">while</span>(item!=target[i])&#123;	<span class="comment">// 加入的值不是target[i]</span></span><br><span class="line">                res.push_back(<span class="string">"Push"</span>);</span><br><span class="line">                res.push_back(<span class="string">"Pop"</span>);</span><br><span class="line">                item++;</span><br><span class="line">            &#125;</span><br><span class="line">            res.push_back(<span class="string">"Push"</span>);</span><br><span class="line">            item++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="形成两个异或相等数组的三元组数目"><a href="#形成两个异或相等数组的三元组数目" class="headerlink" title="形成两个异或相等数组的三元组数目"></a><a href="https://leetcode-cn.com/contest/weekly-contest-188/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/" target="_blank" rel="noopener">形成两个异或相等数组的三元组数目</a></h3><h4 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h4><p>给你一个整数数组 <code>arr</code> 。</p>
+<p>现需要从数组中取三个下标 <code>i</code>、<code>j</code> 和 <code>k</code> ，其中 <code>(0 &lt;= i &lt; j &lt;= k &lt; arr.length)</code> 。</p>
+<p><code>a</code> 和 <code>b</code> 定义如下：</p>
+<ul>
+<li><code>a = arr[i] ^ arr[i + 1] ^ ... ^ arr[j - 1]</code></li>
+<li><code>b = arr[j] ^ arr[j + 1] ^ ... ^ arr[k]</code></li>
+</ul>
+<p>注意：<strong>^</strong> 表示 <strong>按位异或</strong> 操作。</p>
+<p>请返回能够令 <code>a == b</code> 成立的三元组 (<code>i</code>, <code>j</code> , <code>k</code>) 的数目。</p>
+<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">输入：arr &#x3D; [2,3,1,6,7]</span><br><span class="line">输出：4</span><br><span class="line">解释：满足题意的三元组分别是 (0,1,2), (0,2,2), (2,3,4) 以及 (2,4,4)</span><br><span class="line"></span><br><span class="line">输入：arr &#x3D; [1,1,1,1,1]</span><br><span class="line">输出：10</span><br><span class="line"></span><br><span class="line">输入：arr &#x3D; [2,3]</span><br><span class="line">输出：0</span><br><span class="line"></span><br><span class="line">输入：arr &#x3D; [1,3,5,7,9]</span><br><span class="line">输出：3</span><br><span class="line"></span><br><span class="line">输入：arr &#x3D; [7,11,12,9,5,2,7,17,22]</span><br><span class="line">输出：8</span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line">1 &lt;&#x3D; arr.length &lt;&#x3D; 300</span><br><span class="line">1 &lt;&#x3D; arr[i] &lt;&#x3D; 10^8</span><br></pre></td></tr></table></figure>
+<h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><p>暴力枚举即可。</p>
+<h4 id="实现示例-1"><a href="#实现示例-1" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countTriplets</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> pre = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;n;j++)&#123;</span><br><span class="line">                pre ^= nums[j<span class="number">-1</span>];	<span class="comment">// a</span></span><br><span class="line">                <span class="keyword">int</span> bac = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k=j;k&lt;n;k++)&#123;</span><br><span class="line">                    bac ^= nums[k];		<span class="comment">// b</span></span><br><span class="line">                    <span class="keyword">if</span>(pre == bac) res++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="收集树上所有苹果的最少时间"><a href="#收集树上所有苹果的最少时间" class="headerlink" title="收集树上所有苹果的最少时间"></a><a href="https://leetcode-cn.com/contest/weekly-contest-188/problems/minimum-time-to-collect-all-apples-in-a-tree/" target="_blank" rel="noopener">收集树上所有苹果的最少时间</a></h3><h4 id="描述-2"><a href="#描述-2" class="headerlink" title="描述"></a>描述</h4><p>给你一棵有 <code>n</code> 个节点的无向树，节点编号为 <code>0</code> 到 <code>n-1</code> ，它们中有一些节点有苹果。通过树上的一条边，需要花费 1 秒钟。你从 <strong>节点 0</strong> 出发，请你返回最少需要多少秒，可以收集到所有苹果，并回到节点 0 。</p>
+<p>无向树的边由 <code>edges</code> 给出，其中 <code>edges[i] = [fromi, toi]</code> ，表示有一条边连接 <code>from</code> 和 <code>toi</code> 。除此以外，还有一个布尔数组 <code>hasApple</code> ，其中 <code>hasApple[i] = true</code> 代表节点 <code>i</code> 有一个苹果，否则，节点 <code>i</code> 没有苹果。</p>
+<h4 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h4><p><img src="/2020/05/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B188/min_time_collect_apple_1.png" alt="1"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n &#x3D; 7, edges &#x3D; [[0,1],[0,2],[1,4],[1,5],[2,3],[2,6]], hasApple &#x3D; [false,false,true,false,true,true,false]</span><br><span class="line">输出：8 </span><br><span class="line">解释：上图展示了给定的树，其中红色节点表示有苹果。一个能收集到所有苹果的最优方案由绿色箭头表示。</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/05/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B188/min_time_collect_apple_2.png" alt="2"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">输入：n &#x3D; 7, edges &#x3D; [[0,1],[0,2],[1,4],[1,5],[2,3],[2,6]], hasApple &#x3D; [false,false,true,false,false,true,false]</span><br><span class="line">输出：6</span><br><span class="line">解释：上图展示了给定的树，其中红色节点表示有苹果。一个能收集到所有苹果的最优方案由绿色箭头表示。</span><br><span class="line"></span><br><span class="line">输入：n &#x3D; 7, edges &#x3D; [[0,1],[0,2],[1,4],[1,5],[2,3],[2,6]], hasApple &#x3D; [false,false,false,false,false,false,false]</span><br><span class="line">输出：0</span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line">1 &lt;&#x3D; n &lt;&#x3D; 10^5</span><br><span class="line">edges.length &#x3D;&#x3D; n-1</span><br><span class="line">edges[i].length &#x3D;&#x3D; 2</span><br><span class="line">0 &lt;&#x3D; fromi, toi &lt;&#x3D; n-1</span><br><span class="line">fromi &lt; toi</span><br><span class="line">hasApple.length &#x3D;&#x3D; n</span><br></pre></td></tr></table></figure>
+<h4 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h4><p>观察到结果中的边都被使用了两次，因此求遍历的边数就可以得到答案。</p>
+<p>问一：怎样的方案是最优的方案呢？</p>
+<blockquote>
+<p>贪心思想：对于某个根节点，如果左子树为空或者左子树中没有苹果，那么，该root到left的这条边不会被包含在结果中，右子树同理</p>
+</blockquote>
+<p>设结果为<code>set={e1,e2...}</code>,<code>set</code>中元素为边。(下面讨论的是<code>set</code>中的边)</p>
+<p>问二: 子树中边的条数与根树中边的条数之间的递推关系是什么?</p>
+<blockquote>
+<p>设为$f(root),f(left),f(right)$</p>
+<p>如果$f(left) != 0$,那么必然有边$(root,left)$,否则一定没有</p>
+<p>同理$f(right)!=0$,那么必然有边$(root,right)$</p>
+</blockquote>
+<p>问三：怎么判断$f(left)$以及$f(right)$是否为0呢？</p>
+<blockquote>
+<p>已判断$f(left)$为例:</p>
+<p>如果以$left$为根的树中含有苹果,那么$f(left)$一定不为0</p>
+<p>即判断以$left$为根的树中是否含有苹果，如果有，则$f(left) != 0$,否则$f(left)=0$</p>
+<p>那么就转化为求每个点以及子树包含的苹果的个数。</p>
+</blockquote>
+<p>问四：无向树如何<code>dfs</code>(不重复遍历)?</p>
+<blockquote>
+<p>对于一个顶点来说，除了父节点外，其他均是该顶点的子节点，因此只需标记父节点就行了。</p>
+</blockquote>
+<h4 id="实现示例-2"><a href="#实现示例-2" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 求to顶点及其子树包含的苹果个数</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> from,<span class="keyword">int</span> to,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;dp,<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;g,<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; &amp;ha)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(dp[to] != <span class="number">-1</span>) <span class="keyword">return</span> dp[to];</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(ha[to]) ans++;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> item:g[to])&#123;</span><br><span class="line">            <span class="keyword">if</span>(item==from) <span class="keyword">continue</span>;</span><br><span class="line">            ans+=dfs(to,item,dp,g,ha); <span class="comment">// 递归求子树</span></span><br><span class="line">        &#125;</span><br><span class="line">        dp[to] = ans;</span><br><span class="line">        <span class="keyword">return</span> dp[to];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 求to节点及其子树中包含的边数(结果set中的边)</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs2</span><span class="params">(<span class="keyword">int</span> from,<span class="keyword">int</span> to,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;dp,<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;g,<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; &amp;ha)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(dp[to]==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> item:g[to])&#123;</span><br><span class="line">            <span class="keyword">if</span>(item==from) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(dp[item]==<span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">            ans +=<span class="number">1</span>+dfs2(to,item,dp,g,ha);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minTime</span><span class="params">(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&amp; hasApple)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">g</span><span class="params">(n)</span></span>;</span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; vis;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> item:edges)&#123;	<span class="comment">// 建立连接表</span></span><br><span class="line">            g[item[<span class="number">0</span>]].push_back(item[<span class="number">1</span>]);</span><br><span class="line">            g[item[<span class="number">1</span>]].push_back(item[<span class="number">0</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(n,<span class="number">-1</span>)</span></span>;</span><br><span class="line">        dfs(<span class="number">-1</span>,<span class="number">0</span>,dp,g,hasApple);</span><br><span class="line">        <span class="comment">// for(int i=0;i&lt;n;i++) cout&lt;&lt;dp[i]&lt;&lt;endl;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span> * dfs2(<span class="number">-1</span>,<span class="number">0</span>,dp,g,hasApple);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>该题也有其他的实现方法，详情可以看看题目的题解部分。</p>
+<h3 id="切披萨的方案数"><a href="#切披萨的方案数" class="headerlink" title="切披萨的方案数"></a><a href="https://leetcode-cn.com/contest/weekly-contest-188/problems/number-of-ways-of-cutting-a-pizza/" target="_blank" rel="noopener">切披萨的方案数</a></h3><h4 id="描述-3"><a href="#描述-3" class="headerlink" title="描述"></a>描述</h4><p>给你一个 <code>rows x cols</code> 大小的矩形披萨和一个整数 <code>k</code> ，矩形包含两种字符： <code>&#39;A&#39;</code> （表示苹果）和 <code>&#39;.&#39;</code> （表示空白格子）。你需要切披萨 <code>k-1</code> 次，得到 <code>k</code> 块披萨并送给别人。</p>
+<p>切披萨的每一刀，先要选择是向垂直还是水平方向切，再在矩形的边界上选一个切的位置，将披萨一分为二。如果垂直地切披萨，那么需要把左边的部分送给一个人，如果水平地切，那么需要把上面的部分送给一个人。在切完最后一刀后，需要把剩下来的一块送给最后一个人。</p>
+<p>请你返回确保每一块披萨包含 <strong>至少</strong> 一个苹果的切披萨方案数。由于答案可能是个很大的数字，请你返回它对 10^9 + 7 取余的结果。</p>
+<h4 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h4><p><img src="/2020/05/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B188/ways_to_cut_apple_1.png" alt="1"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">输入：pizza &#x3D; [&quot;A..&quot;,&quot;AAA&quot;,&quot;...&quot;], k &#x3D; 3</span><br><span class="line">输出：3 </span><br><span class="line">解释：上图展示了三种切披萨的方案。注意每一块披萨都至少包含一个苹果。</span><br><span class="line"></span><br><span class="line">输入：pizza &#x3D; [&quot;A..&quot;,&quot;AA.&quot;,&quot;...&quot;], k &#x3D; 3</span><br><span class="line">输出：1</span><br><span class="line"></span><br><span class="line">输入：pizza &#x3D; [&quot;A..&quot;,&quot;A..&quot;,&quot;...&quot;], k &#x3D; 1</span><br><span class="line">输出：1</span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line">1 &lt;&#x3D; rows, cols &lt;&#x3D; 50</span><br><span class="line">rows &#x3D;&#x3D; pizza.length</span><br><span class="line">cols &#x3D;&#x3D; pizza[i].length</span><br><span class="line">1 &lt;&#x3D; k &lt;&#x3D; 10</span><br><span class="line">pizza 只包含字符 &#39;A&#39; 和 &#39;.&#39; 。</span><br></pre></td></tr></table></figure>
+<h4 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h4><p>关键词有逐步分割，逐步选择。联想到<code>DP</code>。</p>
+<p>设要求的值为$f(m,n,k)$,表示有$m$行，$n$列,分割成$k$段的方案数。</p>
+<p>问一：$f(m,n,k)$与$f(..,..,k-1)$有何关系?</p>
+<blockquote>
+<p>明显，</p>
+<p>如果能在行上切一刀时,$f(m,n,k)$与$f(i,n,k-1)$$(0 \le i &lt; m)$有关</p>
+<p>同理如果能在列上切一刀时，$f(m,n,k)$与$f(m,j,k-1)$$(0 \le j &lt; m)$有关</p>
+</blockquote>
+<p>问二：怎么判断在行上的一刀或者在列上的一刀是否合理？</p>
+<blockquote>
+<p>切出去的披萨是否含有苹果，含有的话，这一刀合理</p>
+</blockquote>
+<h4 id="实现示例-3"><a href="#实现示例-3" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">ways</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; pizza, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = pizza.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> n = pizza[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> MOD = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="comment">// 是否要采取同下面代码中的上下翻转，左右翻转操作取决与你的DP状态表示方法</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;	<span class="comment">// 左右翻转</span></span><br><span class="line">            reverse(pizza[i].<span class="built_in">begin</span>(),pizza[i].<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;(m/<span class="number">2</span>);i++)&#123;	<span class="comment">// 上下翻转</span></span><br><span class="line">            <span class="built_in">string</span> temp =pizza[i];</span><br><span class="line">            pizza[i] = pizza[m<span class="number">-1</span>-i];</span><br><span class="line">            pizza[m<span class="number">-1</span>-i] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">ts</span><span class="params">(m+<span class="number">1</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n+<span class="number">1</span>,<span class="number">0</span>))</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">                <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span>(pizza[i<span class="number">-1</span>][j<span class="number">-1</span>]==<span class="string">'A'</span>) temp++;</span><br><span class="line">                ts[i][j] = ts[i<span class="number">-1</span>][j]+ts[i][j<span class="number">-1</span>]-ts[i<span class="number">-1</span>][j<span class="number">-1</span>]+temp;	<span class="comment">// 二维前缀和</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&gt; <span class="title">dp</span><span class="params">(m+<span class="number">1</span>,<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;(n+<span class="number">1</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(k+<span class="number">1</span>,<span class="number">0</span>)))</span></span>;</span><br><span class="line">        <span class="comment">// DP初始条件</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=m;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;=n;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i==<span class="number">0</span> || j==<span class="number">0</span>) dp[i][j][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> p=<span class="number">1</span>;p&lt;=k;p++)&#123;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> ki=<span class="number">1</span>;ki&lt;i;ki++)&#123; <span class="comment">// dp[i][j][p]与dp[ki][j][p-1]</span></span><br><span class="line">                        <span class="keyword">int</span> temp = ts[i][j]-ts[ki][j];</span><br><span class="line">                        <span class="keyword">if</span>(temp==<span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">                        dp[i][j][p] = (dp[i][j][p]+dp[ki][j][p<span class="number">-1</span>])%MOD;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> kj=<span class="number">1</span>;kj&lt;j;kj++)&#123;	<span class="comment">// dp[i][j][p]与dp[i][kj][p-1]</span></span><br><span class="line">                        <span class="keyword">int</span> temp = ts[i][j]-ts[i][kj];</span><br><span class="line">                        <span class="comment">// cout&lt;&lt;temp&lt;&lt;endl;</span></span><br><span class="line">                        <span class="keyword">if</span>(temp==<span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">                        dp[i][j][p] = (dp[i][j][p]+dp[i][kj][p<span class="number">-1</span>])%MOD;</span><br><span class="line">                        <span class="comment">// cout&lt;&lt;dp[i][j][k]&lt;&lt;endl;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(ts[i][j])&#123;	<span class="comment">// 整个分给一个人</span></span><br><span class="line">                        dp[i][j][p] = (dp[i][j][p]+dp[<span class="number">0</span>][<span class="number">0</span>][p<span class="number">-1</span>])%MOD;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// cout&lt;&lt;dp[m][n][1]&lt;&lt;endl;</span></span><br><span class="line">        <span class="keyword">return</span> dp[m][n][k]%MOD;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总的来说，题目难度不算很大，前两题直接模拟或者暴力枚举即可。</p>
+<p>第三题卡了一会儿，不是非常熟悉无向树的dfs写法，写得有点慢。</p>
+<p>第4题记得<code>codeforces</code>上做过一个类似的<code>DP</code>题，调试花了一会儿，还是初始条件的设置容易出问题。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E5%8A%9B%E6%89%A3/" rel="tag"># 力扣</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/07/%E5%8A%9B%E6%89%A3%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A120200507/" rel="prev" title="力扣每日打卡20200507">
+      <i class="fa fa-chevron-left"></i> 力扣每日打卡20200507
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#用栈操作构建数组"><span class="nav-number">1.</span> <span class="nav-text">用栈操作构建数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述"><span class="nav-number">1.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-number">1.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例"><span class="nav-number">1.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#形成两个异或相等数组的三元组数目"><span class="nav-number">2.</span> <span class="nav-text">形成两个异或相等数组的三元组数目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-1"><span class="nav-number">2.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例-1"><span class="nav-number">2.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-1"><span class="nav-number">2.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例-1"><span class="nav-number">2.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收集树上所有苹果的最少时间"><span class="nav-number">3.</span> <span class="nav-text">收集树上所有苹果的最少时间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-2"><span class="nav-number">3.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例-2"><span class="nav-number">3.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-2"><span class="nav-number">3.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例-2"><span class="nav-number">3.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切披萨的方案数"><span class="nav-number">4.</span> <span class="nav-text">切披萨的方案数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-3"><span class="nav-number">4.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例-3"><span class="nav-number">4.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-3"><span class="nav-number">4.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例-3"><span class="nav-number">4.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Koala Xu</p>
+  <div class="site-description" itemprop="description">博观而约取，厚积而博发</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xyqkoala" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xyqkoala" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xyq_lawrence@163.com" title="E-Mail → mailto:xyq_lawrence@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Koala Xu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
