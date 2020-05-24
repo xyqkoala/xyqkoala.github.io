@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="这篇文章主要记录一下第190场周赛的题目解答。以下是四个题目:  检查单词是否为句中其他单词的前缀: 3分 定长子串中元音的最大数目: 4分 二叉树中的伪回文路径: 5分 两个子序列的最大点积: 6分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="力扣周赛190">
+<meta property="og:url" content="http://yoursite.com/2020/05/24/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B190/index.html">
+<meta property="og:site_name" content="Koala Xu的随笔">
+<meta property="og:description" content="这篇文章主要记录一下第190场周赛的题目解答。以下是四个题目:  检查单词是否为句中其他单词的前缀: 3分 定长子串中元音的最大数目: 4分 二叉树中的伪回文路径: 5分 两个子序列的最大点积: 6分">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/05/24/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B190/palindromic_paths_1.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/24/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B190/palindromic_paths_2.png">
+<meta property="article:published_time" content="2020-05-24T12:29:31.000Z">
+<meta property="article:modified_time" content="2020-05-24T13:41:43.492Z">
+<meta property="article:author" content="Koala Xu">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="力扣">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/05/24/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B190/palindromic_paths_1.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/24/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B190/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>力扣周赛190 | Koala Xu的随笔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Koala Xu的随笔</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Show Me Your Code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/24/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B190/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Koala Xu">
+      <meta itemprop="description" content="博观而约取，厚积而博发">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Koala Xu的随笔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          力扣周赛190
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-24 20:29:31 / 修改时间：21:41:43" itemprop="dateCreated datePublished" datetime="2020-05-24T20:29:31+08:00">2020-05-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">力扣周赛</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这篇文章主要记录一下第190场周赛的题目解答。以下是四个题目:</p>
+<ol>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-190/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence/" target="_blank" rel="noopener">检查单词是否为句中其他单词的前缀</a>: 3分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-190/problems/maximum-number-of-vowels-in-a-substring-of-given-length/" target="_blank" rel="noopener">定长子串中元音的最大数目</a>: 4分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-190/problems/pseudo-palindromic-paths-in-a-binary-tree/" target="_blank" rel="noopener">二叉树中的伪回文路径</a>: 5分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-190/problems/max-dot-product-of-two-subsequences/" target="_blank" rel="noopener">两个子序列的最大点积</a>: 6分</li>
+</ol>
+<a id="more"></a>
+<h3 id="检查单词是否为句中其他单词的前缀"><a href="#检查单词是否为句中其他单词的前缀" class="headerlink" title="检查单词是否为句中其他单词的前缀"></a><a href="https://leetcode-cn.com/contest/weekly-contest-190/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence/" target="_blank" rel="noopener">检查单词是否为句中其他单词的前缀</a></h3><h4 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h4><p>给你一个字符串 <code>sentence</code> 作为句子并指定检索词为 <code>searchWord</code> ，其中句子由若干用 <strong>单个空格</strong> 分隔的单词组成。</p>
+<p>请你检查检索词 <code>searchWord</code> 是否为句子 <code>sentence</code> 中任意单词的前缀。</p>
+<ul>
+<li>如果 <code>searchWord</code> 是某一个单词的前缀，则返回句子 <code>sentence</code> 中该单词所对应的下标（<strong>下标从 1 开始</strong>）。</li>
+<li>如果 <code>searchWord</code> 是多个单词的前缀，则返回匹配的第一个单词的下标（<strong>最小下标</strong>）。</li>
+<li>如果 <code>searchWord</code> 不是任何单词的前缀，则返回 <strong>-1</strong> 。</li>
+</ul>
+<p>字符串 <code>S</code> 的 「前缀」是 <code>S</code> 的任何前导连续子字符串。</p>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">输入：sentence &#x3D; &quot;i love eating burger&quot;, searchWord &#x3D; &quot;burg&quot;</span><br><span class="line">输出：4</span><br><span class="line">解释：&quot;burg&quot; 是 &quot;burger&quot; 的前缀，而 &quot;burger&quot; 是句子中第 4 个单词。</span><br><span class="line"></span><br><span class="line">输入：sentence &#x3D; &quot;this problem is an easy problem&quot;, searchWord &#x3D; &quot;pro&quot;</span><br><span class="line">输出：2</span><br><span class="line">解释：&quot;pro&quot; 是 &quot;problem&quot; 的前缀，而 &quot;problem&quot; 是句子中第 2 个也是第 6 个单词，但是应该返回最小下标 2 。</span><br><span class="line"></span><br><span class="line">输入：sentence &#x3D; &quot;i am tired&quot;, searchWord &#x3D; &quot;you&quot;</span><br><span class="line">输出：-1</span><br><span class="line">解释：&quot;you&quot; 不是句子中任何单词的前缀。</span><br><span class="line"></span><br><span class="line">输入：sentence &#x3D; &quot;i use triple pillow&quot;, searchWord &#x3D; &quot;pill&quot;</span><br><span class="line">输出：4</span><br><span class="line"></span><br><span class="line">输入：sentence &#x3D; &quot;hello from the other side&quot;, searchWord &#x3D; &quot;they&quot;</span><br><span class="line">输出：-1</span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; sentence.length &lt;&#x3D; 100</span><br><span class="line">1 &lt;&#x3D; searchWord.length &lt;&#x3D; 10</span><br><span class="line">sentence 由小写英文字母和空格组成。</span><br><span class="line">searchWord 由小写英文字母组成。</span><br><span class="line">前缀就是紧密附着于词根的语素，中间不能插入其它成分，并且它的位置是固定的——-位于词根之前。（引用自 前缀_百度百科 ）</span><br></pre></td></tr></table></figure>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>按照题目要求模拟：</p>
+<ol>
+<li>获取字符串中的单词</li>
+<li>判断<code>serachWord</code>是不是单词的前缀</li>
+</ol>
+<h4 id="实现示例"><a href="#实现示例" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">isPrefixOfWord</span><span class="params">(<span class="built_in">string</span> sentence, <span class="built_in">string</span> searchWord)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">string</span> temp;	<span class="comment">// 单词</span></span><br><span class="line">        <span class="keyword">int</span> idx = <span class="number">1</span>;	<span class="comment">// 单词的下标</span></span><br><span class="line">        <span class="keyword">int</span> n = sentence.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i==n || sentence[i]==<span class="string">' '</span>)&#123;	<span class="comment">// 一个新单词产生</span></span><br><span class="line">                <span class="keyword">if</span>(temp==<span class="string">""</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="comment">// 判断searchWord是不是单词的前缀</span></span><br><span class="line">                <span class="keyword">if</span>(temp.substr(<span class="number">0</span>,searchWord.<span class="built_in">size</span>()) == searchWord)&#123;	</span><br><span class="line">                    <span class="keyword">return</span> idx;</span><br><span class="line">                &#125;</span><br><span class="line">                temp = <span class="string">""</span>;</span><br><span class="line">                idx+=<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                temp+=sentence[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="定长子串中元音的最大数目"><a href="#定长子串中元音的最大数目" class="headerlink" title="定长子串中元音的最大数目"></a><a href="https://leetcode-cn.com/contest/weekly-contest-190/problems/maximum-number-of-vowels-in-a-substring-of-given-length/" target="_blank" rel="noopener">定长子串中元音的最大数目</a></h3><h4 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h4><p>给你字符串 <code>s</code> 和整数 <code>k</code> 。</p>
+<p>请返回字符串 <code>s</code> 中长度为 <code>k</code> 的单个子字符串中可能包含的最大元音字母数。</p>
+<p>英文中的 <strong>元音字母</strong> 为（<code>a</code>, <code>e</code>, <code>i</code>, <code>o</code>, <code>u</code>）。</p>
+<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s &#x3D; &quot;abciiidef&quot;, k &#x3D; 3</span><br><span class="line">输出：3</span><br><span class="line">解释：子字符串 &quot;iii&quot; 包含 3 个元音字母。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s &#x3D; &quot;aeiou&quot;, k &#x3D; 2</span><br><span class="line">输出：2</span><br><span class="line">解释：任意长度为 2 的子字符串都包含 2 个元音字母。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s &#x3D; &quot;leetcode&quot;, k &#x3D; 3</span><br><span class="line">输出：2</span><br><span class="line">解释：&quot;lee&quot;、&quot;eet&quot; 和 &quot;ode&quot; 都包含 2 个元音字母。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s &#x3D; &quot;rhythms&quot;, k &#x3D; 4</span><br><span class="line">输出：0</span><br><span class="line">解释：字符串 s 中不含任何元音字母。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s &#x3D; &quot;tryhard&quot;, k &#x3D; 4</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">提示：</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; s.length &lt;&#x3D; 10^5</span><br><span class="line">s 由小写英文字母组成</span><br><span class="line">1 &lt;&#x3D; k &lt;&#x3D; s.length</span><br></pre></td></tr></table></figure>
+<h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><p><code>k</code>是窗口的大小，用滑动窗口来模拟即可。</p>
+<h4 id="实现示例-1"><a href="#实现示例-1" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxVowels</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;	<span class="comment">// 保存窗口内中的元音字符个数</span></span><br><span class="line">        <span class="keyword">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;<span class="keyword">char</span>&gt; t;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> item:<span class="string">"aeiou"</span>)&#123;</span><br><span class="line">            t.insert(item);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            cnt+=t.count(s[i]);</span><br><span class="line">            <span class="keyword">if</span>(i&gt;=k)&#123;	<span class="comment">// 弹出窗口的队尾</span></span><br><span class="line">                cnt-=t.count(s[i-k]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(i&gt;=(k<span class="number">-1</span>))&#123;	<span class="comment">// 更新res</span></span><br><span class="line">                res = <span class="built_in">max</span>(res,cnt);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="二叉树中的伪回文路径"><a href="#二叉树中的伪回文路径" class="headerlink" title="二叉树中的伪回文路径"></a><a href="https://leetcode-cn.com/contest/weekly-contest-190/problems/pseudo-palindromic-paths-in-a-binary-tree/" target="_blank" rel="noopener">二叉树中的伪回文路径</a></h3><h4 id="描述-2"><a href="#描述-2" class="headerlink" title="描述"></a>描述</h4><p>给你一棵二叉树，每个节点的值为 1 到 9 。我们称二叉树中的一条路径是 「<strong>伪回文</strong>」的，当它满足：路径经过的所有节点值的排列中，存在一个回文序列。</p>
+<p>请你返回从根到叶子节点的所有路径中 <strong>伪回文</strong> 路径的数目。</p>
+<h4 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h4><p><img src="/2020/05/24/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B190/palindromic_paths_1.png" alt></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">1</span>,null,<span class="number">1</span>]</span><br><span class="line">输出：<span class="number">2</span> </span><br><span class="line">解释：上图为给定的二叉树。总共有 <span class="number">3</span> 条从根到叶子的路径：红色路径 [<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>] ，绿色路径 [<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>] 和路径 [<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>] 。</span><br><span class="line">     在这些路径中，只有红色和绿色的路径是伪回文路径，因为红色路径 [<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>] 存在回文排列 [<span class="number">3</span>,<span class="number">2</span>,<span class="number">3</span>] ，绿色路径 [<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>] 存在回文排列 [<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>] 。</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/05/24/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B190/palindromic_paths_2.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：root &#x3D; [2,1,1,1,3,null,null,null,null,null,1]</span><br><span class="line">输出：1 </span><br><span class="line">解释：上图为给定二叉树。总共有 3 条从根到叶子的路径：绿色路径 [2,1,1] ，路径 [2,1,3,1] 和路径 [2,1] 。</span><br><span class="line">     这些路径中只有绿色路径是伪回文路径，因为 [2,1,1] 存在回文排列 [1,2,1] 。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root &#x3D; [9]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
+<h4 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h4><p>由题意可得:</p>
+<ol>
+<li>只用判断叶子节点</li>
+<li>要保存从根节点到叶子节点的所有值能否构成回文</li>
+</ol>
+<p>用<code>dfs</code>来遍历整棵树，同时采用前序遍历的方式，而且要保存从根到当前节点中包含的所有数字，当是叶子节点时，判断保存的所有数字能否构成回文字符串。</p>
+<p>问:那么到底该怎么判断一个数字集合能否构成回文字符串呢?</p>
+<blockquote>
+<p>观察得到回文字符串左右两端对称，那么除中间元素以外的所有元素的次数必然是偶数。</p>
+<p>因此，如果能构成回文串，那么每种元素的出现次数必然是偶数个或者仅有一种元素出现奇数次。只需求解出现次数为奇数的元素种类的个数。</p>
+<p>例如:</p>
+<p>1出现5 次，2 出现2次，3出现4次</p>
+<p>那么可以构成回文串，因为出现奇数次的元素只有1，因此可以构成。</p>
+<p>1出现5 次，2 出现2次，3出现3次</p>
+<p>那么不能构成回文串，因为出现奇数次的元素有1，3，因此不能构成。</p>
+</blockquote>
+<p>问: 是否需要保存每个元素的具体出现次数呢？</p>
+<blockquote>
+<p>不需要，在上面的讨论中，我们只用到了每个元素出现次数的奇偶性，因此可以用一个二进制数表述。</p>
+<p>比如说:</p>
+<p>001001011表示</p>
+<p>987654321中1，2，4，7出现了奇数，其他出现了偶数次</p>
+</blockquote>
+<h4 id="实现示例-2"><a href="#实现示例-2" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">// 求[1,9]中包含奇数个元素的种类数。</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> &amp;mask)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = mask;</span><br><span class="line">        <span class="keyword">while</span>(n)&#123;</span><br><span class="line">            res+=n&amp;<span class="number">1</span>;</span><br><span class="line">            n&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res &lt;=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> &amp;mask,<span class="keyword">int</span> &amp;res,TreeNode *root)</span></span>&#123;</span><br><span class="line">        mask ^= (<span class="number">1</span>&lt;&lt;(root-&gt;val<span class="number">-1</span>)); <span class="comment">// 当前元素的出现次数+1(奇偶数改变)</span></span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left == <span class="literal">nullptr</span> &amp;&amp; root-&gt;right == <span class="literal">nullptr</span> &amp;&amp; check(mask))&#123;res+=<span class="number">1</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left)&#123; dfs(mask,res,root-&gt;left);&#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right)&#123; dfs(mask,res,root-&gt;right);&#125;</span><br><span class="line">        mask ^= (<span class="number">1</span>&lt;&lt;(root-&gt;val<span class="number">-1</span>));	<span class="comment">// 回溯</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">pseudoPalindromicPaths</span> <span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> mask = <span class="number">0</span>;</span><br><span class="line">        dfs(mask,res,root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>最初的写法是用一个数组保存每个元素的出现次数，处理方式基本是相同的，用<code>bitmask</code>应该更省内存，运行速度也更快一些。下面是直接用数组来保存每个元素的出现次数的代码。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;dp)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> item:dp)&#123;</span><br><span class="line">            res += item%<span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res&lt;=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;dp,<span class="keyword">int</span> &amp;res,TreeNode *root)</span></span>&#123;</span><br><span class="line">        dp[root-&gt;val]+=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left == <span class="literal">nullptr</span> &amp;&amp; root-&gt;right == <span class="literal">nullptr</span> &amp;&amp; check(dp))&#123;</span><br><span class="line">            res+=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left)&#123;</span><br><span class="line">            dfs(dp,res,root-&gt;left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right)&#123;</span><br><span class="line">            dfs(dp,res,root-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">        dp[root-&gt;val]-=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">pseudoPalindromicPaths</span> <span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(<span class="number">10</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line">        dfs(dp,res,root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="两个子序列的最大点积"><a href="#两个子序列的最大点积" class="headerlink" title="两个子序列的最大点积"></a><a href="https://leetcode-cn.com/contest/weekly-contest-190/problems/max-dot-product-of-two-subsequences/" target="_blank" rel="noopener">两个子序列的最大点积</a></h3><h4 id="描述-3"><a href="#描述-3" class="headerlink" title="描述"></a>描述</h4><p>给你两个数组 <code>nums1</code> 和 <code>nums2</code> 。</p>
+<p>请你返回 <code>nums1</code> 和 <code>nums2</code> 中两个长度相同的 <strong>非空</strong> 子序列的最大点积。</p>
+<p>数组的非空子序列是通过删除原数组中某些元素（可能一个也不删除）后剩余数字组成的序列，但不能改变数字间相对顺序。比方说，<code>[2,3,5]</code> 是 <code>[1,2,3,4,5]</code> 的一个子序列而 <code>[1,5,3]</code> 不是。</p>
+<h4 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：nums1 &#x3D; [2,1,-2,5], nums2 &#x3D; [3,0,-6]</span><br><span class="line">输出：18</span><br><span class="line">解释：从 nums1 中得到子序列 [2,-2] ，从 nums2 中得到子序列 [3,-6] 。</span><br><span class="line">它们的点积为 (2*3 + (-2)*(-6)) &#x3D; 18 。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：nums1 &#x3D; [3,-2], nums2 &#x3D; [2,-6,7]</span><br><span class="line">输出：21</span><br><span class="line">解释：从 nums1 中得到子序列 [3] ，从 nums2 中得到子序列 [7] 。</span><br><span class="line">它们的点积为 (3*7) &#x3D; 21 。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：nums1 &#x3D; [-1,-1], nums2 &#x3D; [1,1]</span><br><span class="line">输出：-1</span><br><span class="line">解释：从 nums1 中得到子序列 [-1] ，从 nums2 中得到子序列 [1] 。</span><br><span class="line">它们的点积为 -1 。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">提示：</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; nums1.length, nums2.length &lt;&#x3D; 500</span><br><span class="line">-1000 &lt;&#x3D; nums1[i], nums2[i] &lt;&#x3D; 100</span><br></pre></td></tr></table></figure>
+<h4 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h4><p>动态规划思想，一旦发现题目中的操作有分步进行的，可以考虑<code>dp</code>。</p>
+<p><code>dp</code>的状态如何定义呢?</p>
+<blockquote>
+<p>明显$dp[i][j]$表示前$i$个<code>nums1</code>元素与前$j$个nums2`元素的最大点积。</p>
+</blockquote>
+<p><code>dp</code>的状态如何转化呢?</p>
+<blockquote>
+<p> $dp[i][j] = min(dp[i-1][j-1]+nums1[i] * nums2[j],dp[i][j-1],dp[i-1][j])$</p>
+</blockquote>
+<p>初始状态如何呢?</p>
+<blockquote>
+<p>$dp[0][j]=0,dp[i][0]=0$</p>
+</blockquote>
+<p>明显题意中<code>nums1</code>与<code>nums2</code>中至少都要取一个元素，因此要考虑如果最后<code>dp</code>结果为0时的情形</p>
+<h4 id="实现示例-3"><a href="#实现示例-3" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxDotProduct</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = nums1.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> n = nums2.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> NIL = -(<span class="number">1e9</span>+<span class="number">7</span>);</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">dp</span><span class="params">(m+<span class="number">1</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n+<span class="number">1</span>,NIL))</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> res = NIL;</span><br><span class="line">        <span class="keyword">int</span> lm = NIL;</span><br><span class="line">        <span class="keyword">int</span> rmn = -NIL;</span><br><span class="line">        <span class="comment">// 在nums1中与nums2中各选取一个元素</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++) &#123;</span><br><span class="line">            dp[i+<span class="number">1</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums1[i]&lt;=<span class="number">0</span>) lm = <span class="built_in">max</span>(lm,nums1[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++) &#123;</span><br><span class="line">            dp[<span class="number">0</span>][j+<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums2[j]&gt;=<span class="number">0</span>) rmn = <span class="built_in">min</span>(rmn,nums2[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        res = lm*rmn;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">                dp[i][j] = nums1[i<span class="number">-1</span>] * nums2[j<span class="number">-1</span>]+dp[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">                <span class="comment">// cout&lt;&lt;dp[i][j]&lt;&lt;endl;</span></span><br><span class="line">                dp[i][j] = <span class="built_in">max</span>(dp[i][j<span class="number">-1</span>],dp[i][j]);</span><br><span class="line">                dp[i][j] = <span class="built_in">max</span>(dp[i<span class="number">-1</span>][j],dp[i][j]);</span><br><span class="line">                <span class="comment">// cout&lt;&lt;dp[i][j]&lt;&lt;endl;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dp[m][n]) <span class="keyword">return</span> dp[m][n];</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>题目难度小，属于手速场，好多高手很快AK了。自己在第三题的回溯上出了点bug，花了几分钟调试了一下。第四题难度不大，但是在处理初始条件上也花了时间来调试。总的来说，动态规划的题目思路找对后要仔细地揣摩初始条件以及边界条件。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E5%8A%9B%E6%89%A3/" rel="tag"># 力扣</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B188/" rel="prev" title="力扣周赛188">
+      <i class="fa fa-chevron-left"></i> 力扣周赛188
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#检查单词是否为句中其他单词的前缀"><span class="nav-number">1.</span> <span class="nav-text">检查单词是否为句中其他单词的前缀</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述"><span class="nav-number">1.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-number">1.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例"><span class="nav-number">1.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定长子串中元音的最大数目"><span class="nav-number">2.</span> <span class="nav-text">定长子串中元音的最大数目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-1"><span class="nav-number">2.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例-1"><span class="nav-number">2.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-1"><span class="nav-number">2.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例-1"><span class="nav-number">2.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树中的伪回文路径"><span class="nav-number">3.</span> <span class="nav-text">二叉树中的伪回文路径</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-2"><span class="nav-number">3.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例-2"><span class="nav-number">3.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-2"><span class="nav-number">3.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例-2"><span class="nav-number">3.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个子序列的最大点积"><span class="nav-number">4.</span> <span class="nav-text">两个子序列的最大点积</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-3"><span class="nav-number">4.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例-3"><span class="nav-number">4.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-3"><span class="nav-number">4.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例-3"><span class="nav-number">4.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Koala Xu</p>
+  <div class="site-description" itemprop="description">博观而约取，厚积而博发</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xyqkoala" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xyqkoala" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xyq_lawrence@163.com" title="E-Mail → mailto:xyq_lawrence@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Koala Xu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
