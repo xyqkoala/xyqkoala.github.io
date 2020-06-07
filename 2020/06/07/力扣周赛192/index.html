@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="这篇文章主要记录一下第191场周赛的题目解答。以下是四个题目:  重新排列数组: 3分 数组中的 k 个最强值: 4分 设计浏览器历史记录: 5分 给房子涂色 III: 6分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="力扣周赛192">
+<meta property="og:url" content="http://yoursite.com/2020/06/07/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B192/index.html">
+<meta property="og:site_name" content="Koala Xu的随笔">
+<meta property="og:description" content="这篇文章主要记录一下第191场周赛的题目解答。以下是四个题目:  重新排列数组: 3分 数组中的 k 个最强值: 4分 设计浏览器历史记录: 5分 给房子涂色 III: 6分">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-07T03:25:50.000Z">
+<meta property="article:modified_time" content="2020-06-07T05:27:42.441Z">
+<meta property="article:author" content="Koala Xu">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="力扣">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/06/07/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B192/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>力扣周赛192 | Koala Xu的随笔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Koala Xu的随笔</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Show Me Your Code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">9</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/07/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B192/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Koala Xu">
+      <meta itemprop="description" content="博观而约取，厚积而博发">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Koala Xu的随笔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          力扣周赛192
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-07 11:25:50 / 修改时间：13:27:42" itemprop="dateCreated datePublished" datetime="2020-06-07T11:25:50+08:00">2020-06-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">力扣周赛</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这篇文章主要记录一下第191场周赛的题目解答。以下是四个题目:</p>
+<ol>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-192/problems/shuffle-the-array/" target="_blank" rel="noopener">重新排列数组</a>: 3分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-192/problems/the-k-strongest-values-in-an-array/" target="_blank" rel="noopener">数组中的 k 个最强值</a>: 4分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-192/problems/design-browser-history/" target="_blank" rel="noopener">设计浏览器历史记录</a>: 5分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-192/problems/paint-house-iii/" target="_blank" rel="noopener">给房子涂色 III</a>: 6分</li>
+</ol>
+<a id="more"></a>
+<h3 id="重新排列数组"><a href="#重新排列数组" class="headerlink" title="重新排列数组"></a><a href="https://leetcode-cn.com/contest/weekly-contest-192/problems/shuffle-the-array/" target="_blank" rel="noopener">重新排列数组</a></h3><h4 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h4><p>给你一个数组 <code>nums</code> ，数组中有 <code>2n</code> 个元素，按 <code>[x1,x2,...,xn,y1,y2,...,yn]</code> 的格式排列。</p>
+<p>请你将数组按 <code>[x1,y1,x2,y2,...,xn,yn]</code> 格式重新排列，返回重排后的数组。</p>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [<span class="number">2</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">7</span>], n = <span class="number">3</span></span><br><span class="line">输出：[<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">7</span>] </span><br><span class="line">解释：由于 x1=<span class="number">2</span>, x2=<span class="number">5</span>, x3=<span class="number">1</span>, y1=<span class="number">3</span>, y2=<span class="number">4</span>, y3=<span class="number">7</span> ，所以答案为 [<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">7</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>], n = <span class="number">4</span></span><br><span class="line">输出：[<span class="number">1</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>], n = <span class="number">2</span></span><br><span class="line">输出：[<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">提示：</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> &lt;= n &lt;= <span class="number">500</span></span><br><span class="line">nums.length == <span class="number">2</span>n</span><br><span class="line"><span class="number">1</span> &lt;= nums[i] &lt;= <span class="number">10</span>^<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>按照题意相继向结果数组中添加元素即可。</p>
+<h4 id="实现示例"><a href="#实现示例" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">shuffle</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            res.push_back(nums[i]);	<span class="comment">// 加入xi</span></span><br><span class="line">            res.push_back(nums[i+n]);<span class="comment">// 加入yi</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>题目不难，<code>res</code>可以提前分配空间，上面代码中持续使用<code>push_back</code>函数会频繁的重新分配内存，效率变低。提前分配足够的空间则只需一次内存分配。这个不细说了，是<code>vector</code>的使用细节问题。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">shuffle</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(<span class="number">2</span>*n)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            res[<span class="number">2</span>*i] = nums[i];</span><br><span class="line">            res[<span class="number">2</span>*i+<span class="number">1</span>]=nums[i+n];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="数组中的-k-个最强值"><a href="#数组中的-k-个最强值" class="headerlink" title="数组中的 k 个最强值"></a><a href="https://leetcode-cn.com/contest/weekly-contest-192/problems/the-k-strongest-values-in-an-array/" target="_blank" rel="noopener">数组中的 k 个最强值</a></h3><h4 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h4><p>给你一个整数数组 <code>arr</code> 和一个整数 <code>k</code> 。</p>
+<p>设 <code>m</code> 为数组的中位数，只要满足下述两个前提之一，就可以判定 <code>arr[i]</code> 的值比 <code>arr[j]</code> 的值更强：</p>
+<ul>
+<li><code>|arr[i] - m| &gt; |arr[j] - m|</code></li>
+<li><code>|arr[i] - m| == |arr[j] - m|</code>，且 <code>arr[i] &gt; arr[j]</code></li>
+</ul>
+<p>请返回由数组中最强的 <code>k</code> 个值组成的列表。答案可以以 <strong>任意顺序</strong> 返回。</p>
+<p><strong>中位数</strong> 是一个有序整数列表中处于中间位置的值。形式上，如果列表的长度为 <code>n</code> ，那么中位数就是该有序列表（下标从 0 开始）中位于 <code>((n - 1) / 2)</code> 的元素。</p>
+<ul>
+<li>例如 <code>arr = [6, -3, 7, 2, 11]</code>，<code>n = 5</code>：数组排序后得到 <code>arr = [-3, 2, 6, 7, 11]</code> ，数组的中间位置为 <code>m = ((5 - 1) / 2) = 2</code> ，中位数 <code>arr[m]</code> 的值为 <code>6</code> 。</li>
+<li>例如 <code>arr = [-7, 22, 17, 3]</code>，<code>n = 4</code>：数组排序后得到 <code>arr = [-7, 3, 17, 22]</code> ，数组的中间位置为 <code>m = ((4 - 1) / 2) = 1</code> ，中位数 <code>arr[m]</code> 的值为 <code>3</code> 。</li>
+</ul>
+<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：arr &#x3D; [1,2,3,4,5], k &#x3D; 2</span><br><span class="line">输出：[5,1]</span><br><span class="line">解释：中位数为 3，按从强到弱顺序排序后，数组变为 [5,1,4,2,3]。最强的两个元素是 [5, 1]。[1, 5] 也是正确答案。</span><br><span class="line">注意，尽管 |5 - 3| &#x3D;&#x3D; |1 - 3| ，但是 5 比 1 更强，因为 5 &gt; 1 。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：arr &#x3D; [1,1,3,5,5], k &#x3D; 2</span><br><span class="line">输出：[5,5]</span><br><span class="line">解释：中位数为 3, 按从强到弱顺序排序后，数组变为 [5,5,1,1,3]。最强的两个元素是 [5, 5]。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：arr &#x3D; [6,7,11,7,6,8], k &#x3D; 5</span><br><span class="line">输出：[11,8,6,6,7]</span><br><span class="line">解释：中位数为 7, 按从强到弱顺序排序后，数组变为 [11,8,6,6,7,7]。</span><br><span class="line">[11,8,6,6,7] 的任何排列都是正确答案。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：arr &#x3D; [6,-3,7,2,11], k &#x3D; 3</span><br><span class="line">输出：[-3,11,2]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：arr &#x3D; [-7,22,17,3], k &#x3D; 2</span><br><span class="line">输出：[22,17]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">提示：</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; arr.length &lt;&#x3D; 10^5</span><br><span class="line">-10^5 &lt;&#x3D; arr[i] &lt;&#x3D; 10^5</span><br><span class="line">1 &lt;&#x3D; k &lt;&#x3D; arr.length</span><br></pre></td></tr></table></figure>
+<h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><p>先找到中位数<code>m</code>(通过排序)，然后找满足条件的前<code>k</code>个元素。</p>
+<p>首先寻找”满足条件的前k个元素”可以通过贪心的思想，一旦想使用贪心思想，必然可能使用到排序或者优先队列，因为这两种方式都可以选取局部最值（当前最大或最小，或者满足某种条件的最大、最小）。</p>
+<p>题目的条件告诉我们一个元素离中位数<code>m</code>越远值越”强”，那么可以明显的看到最末端的两个元素肯定是最“强”的两个，同理可以贪心地从两端取元素，判断谁是当前的最强值。</p>
+<h4 id="实现示例-1"><a href="#实现示例-1" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">getStrongest</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        sort(arr.<span class="built_in">begin</span>(),arr.<span class="built_in">end</span>());	<span class="comment">// 排序</span></span><br><span class="line">        <span class="keyword">int</span> n = arr.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> m = arr[(n<span class="number">-1</span>)/<span class="number">2</span>];   <span class="comment">// 获取中位数</span></span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> r = n<span class="number">-1</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        <span class="keyword">while</span>(k--)&#123;     <span class="comment">// 指向两端的指针进行比较并获得较“强”的值</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">abs</span>(arr[l]-m) &gt; <span class="built_in">abs</span>(arr[r]-m))&#123;</span><br><span class="line">                res.push_back(arr[l++]);    <span class="comment">// l端更“强”</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                res.push_back(arr[r--]);    <span class="comment">// r端更“强”</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="设计浏览器历史记录"><a href="#设计浏览器历史记录" class="headerlink" title="设计浏览器历史记录"></a><a href="https://leetcode-cn.com/contest/weekly-contest-192/problems/design-browser-history/" target="_blank" rel="noopener">设计浏览器历史记录</a></h3><h4 id="描述-2"><a href="#描述-2" class="headerlink" title="描述"></a>描述</h4><p>你有一个只支持单个标签页的 <strong>浏览器</strong> ，最开始你浏览的网页是 <code>homepage</code> ，你可以访问其他的网站 <code>url</code> ，也可以在浏览历史中后退 <code>steps</code> 步或前进 <code>steps</code> 步。</p>
+<p>请你实现 <code>BrowserHistory</code> 类：</p>
+<ul>
+<li><code>BrowserHistory(string homepage)</code> ，用 <code>homepage</code> 初始化浏览器类。</li>
+<li><code>void visit(string url)</code> 从当前页跳转访问 <code>url</code> 对应的页面 。执行此操作会把浏览历史前进的记录全部删除。</li>
+<li><code>string back(int steps)</code> 在浏览历史中后退 <code>steps</code> 步。如果你只能在浏览历史中后退至多 <code>x</code> 步且 <code>steps &gt; x</code> ，那么你只后退 <code>x</code> 步。请返回后退 <strong>至多</strong> <code>steps</code> 步以后的 <code>url</code> 。</li>
+<li><code>string forward(int steps)</code> 在浏览历史中前进 <code>steps</code> 步。如果你只能在浏览历史中前进至多 <code>x</code> 步且 <code>steps &gt; x</code> ，那么你只前进 <code>x</code> 步。请返回前进 <strong>至多</strong> <code>steps</code>步以后的 <code>url</code> 。</li>
+</ul>
+<h4 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">[&quot;BrowserHistory&quot;,&quot;visit&quot;,&quot;visit&quot;,&quot;visit&quot;,&quot;back&quot;,&quot;back&quot;,&quot;forward&quot;,&quot;visit&quot;,&quot;forward&quot;,&quot;back&quot;,&quot;back&quot;]</span><br><span class="line">[[&quot;leetcode.com&quot;],[&quot;google.com&quot;],[&quot;facebook.com&quot;],[&quot;youtube.com&quot;],[1],[1],[1],[&quot;linkedin.com&quot;],[2],[2],[7]]</span><br><span class="line">输出：</span><br><span class="line">[null,null,null,null,&quot;facebook.com&quot;,&quot;google.com&quot;,&quot;facebook.com&quot;,null,&quot;linkedin.com&quot;,&quot;google.com&quot;,&quot;leetcode.com&quot;]</span><br><span class="line"></span><br><span class="line">解释：</span><br><span class="line">BrowserHistory browserHistory &#x3D; new BrowserHistory(&quot;leetcode.com&quot;);</span><br><span class="line">browserHistory.visit(&quot;google.com&quot;);       &#x2F;&#x2F; 你原本在浏览 &quot;leetcode.com&quot; 。访问 &quot;google.com&quot;</span><br><span class="line">browserHistory.visit(&quot;facebook.com&quot;);     &#x2F;&#x2F; 你原本在浏览 &quot;google.com&quot; 。访问 &quot;facebook.com&quot;</span><br><span class="line">browserHistory.visit(&quot;youtube.com&quot;);      &#x2F;&#x2F; 你原本在浏览 &quot;facebook.com&quot; 。访问 &quot;youtube.com&quot;</span><br><span class="line">browserHistory.back(1);                   &#x2F;&#x2F; 你原本在浏览 &quot;youtube.com&quot; ，后退到 &quot;facebook.com&quot; 并返回 &quot;facebook.com&quot;</span><br><span class="line">browserHistory.back(1);                   &#x2F;&#x2F; 你原本在浏览 &quot;facebook.com&quot; ，后退到 &quot;google.com&quot; 并返回 &quot;google.com&quot;</span><br><span class="line">browserHistory.forward(1);                &#x2F;&#x2F; 你原本在浏览 &quot;google.com&quot; ，前进到 &quot;facebook.com&quot; 并返回 &quot;facebook.com&quot;</span><br><span class="line">browserHistory.visit(&quot;linkedin.com&quot;);     &#x2F;&#x2F; 你原本在浏览 &quot;facebook.com&quot; 。 访问 &quot;linkedin.com&quot;</span><br><span class="line">browserHistory.forward(2);                &#x2F;&#x2F; 你原本在浏览 &quot;linkedin.com&quot; ，你无法前进任何步数。</span><br><span class="line">browserHistory.back(2);                   &#x2F;&#x2F; 你原本在浏览 &quot;linkedin.com&quot; ，后退两步依次先到 &quot;facebook.com&quot; ，然后到 &quot;google.com&quot; ，并返回 &quot;google.com&quot;</span><br><span class="line">browserHistory.back(7);                   &#x2F;&#x2F; 你原本在浏览 &quot;google.com&quot;， 你只能后退一步到 &quot;leetcode.com&quot; ，并返回 &quot;leetcode.com&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h4><p>题目的意思不容易理解清楚，慢慢读。关键是判断要使用什么数据结构。</p>
+<p>有一个前进以及后退的操作，可考虑双向链表。</p>
+<p>注意<code>visit</code>接口的意思，一旦<code>visit</code>了这个<code>url</code>，那么这个<code>url</code>后面的网页全部丢失。</p>
+<p>那么丢失在代码上的实现是什么呢？删除操作。</p>
+<p>删除元素是一件费时的操作，可以用”有效”来表示，删除后面的元素，表示后面的元素无效。可以通过一个位置指针来指定最远的有效位置</p>
+<h4 id="实现示例-2"><a href="#实现示例-2" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BrowserHistory</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; t;   <span class="comment">// 保存记录</span></span><br><span class="line">    <span class="keyword">int</span> cur;    <span class="comment">// 当前访问位置</span></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">end</span>;    <span class="comment">// 向后的界限，最远的有效位置</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    BrowserHistory(<span class="built_in">string</span> homepage) &#123;</span><br><span class="line">        t.push_back(homepage);</span><br><span class="line">        cur = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">end</span> = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(<span class="built_in">string</span> url)</span> </span>&#123;    <span class="comment">// 一旦visit那么向后记录消失，即界限为当前位置</span></span><br><span class="line">        <span class="keyword">if</span>(t.<span class="built_in">size</span>() == (cur+<span class="number">1</span>))&#123;    <span class="comment">// 容量不够</span></span><br><span class="line">            t.push_back(url);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            t[cur+<span class="number">1</span>] = url;</span><br><span class="line">        &#125;</span><br><span class="line">        cur++;</span><br><span class="line">        <span class="built_in">end</span> = cur;    <span class="comment">// 界限为idx，idx后的元素失效</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">back</span><span class="params">(<span class="keyword">int</span> steps)</span> </span>&#123;    <span class="comment">// 当前位置后退</span></span><br><span class="line">        cur = <span class="built_in">max</span>(cur-steps,<span class="number">0</span>);     <span class="comment">// 顶多退到首页</span></span><br><span class="line">        <span class="keyword">return</span> t[cur];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">forward</span><span class="params">(<span class="keyword">int</span> steps)</span> </span>&#123;     <span class="comment">// 当前位置后退</span></span><br><span class="line">        cur = <span class="built_in">min</span>(cur+steps,<span class="built_in">end</span>);   <span class="comment">// 顶多前进到界限处</span></span><br><span class="line">        <span class="keyword">return</span> t[cur];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个实现我是从<a href="https://blog.csdn.net/Solstice" target="_blank" rel="noopener">陈硕</a>写的开源网络库<a href="https://github.com/chenshuo/muduo" target="_blank" rel="noopener"><code>muduo</code></a>中的<code>buffer</code>的设计中获取到的灵感，有兴趣的可以去查看一下。这里就不展开来说了。</p>
+<h3 id="给房子涂色-III"><a href="#给房子涂色-III" class="headerlink" title="给房子涂色 III"></a><a href="https://leetcode-cn.com/contest/weekly-contest-192/problems/paint-house-iii/" target="_blank" rel="noopener">给房子涂色 III</a></h3><h4 id="描述-3"><a href="#描述-3" class="headerlink" title="描述"></a>描述</h4><p>在一个小城市里，有 <code>m</code> 个房子排成一排，你需要给每个房子涂上 <code>n</code> 种颜色之一（颜色编号为 <code>1</code> 到 <code>n</code> ）。有的房子去年夏天已经涂过颜色了，所以这些房子不需要被重新涂色。</p>
+<p>我们将连续相同颜色尽可能多的房子称为一个街区。（比方说 <code>houses = [1,2,2,3,3,2,1,1]</code> ，它包含 5 个街区 <code>[{1}, {2,2}, {3,3}, {2}, {1,1}]</code> 。）</p>
+<p>给你一个数组 <code>houses</code> ，一个 <code>m * n</code> 的矩阵 <code>cost</code> 和一个整数 <code>target</code> ，其中：</p>
+<ul>
+<li><code>houses[i]</code>：是第 <code>i</code> 个房子的颜色，<strong>0</strong> 表示这个房子还没有被涂色。</li>
+<li><code>cost[i][j]</code>：是将第 <code>i</code> 个房子涂成颜色 <code>j+1</code> 的花费。</li>
+</ul>
+<p>请你返回房子涂色方案的最小总花费，使得每个房子都被涂色后，恰好组成 <code>target</code> 个街区。如果没有可用的涂色方案，请返回 <strong>-1</strong> 。</p>
+<h4 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：houses &#x3D; [0,0,0,0,0], cost &#x3D; [[1,10],[10,1],[10,1],[1,10],[5,1]], m &#x3D; 5, n &#x3D; 2, target &#x3D; 3</span><br><span class="line">输出：9</span><br><span class="line">解释：房子涂色方案为 [1,2,2,1,1]</span><br><span class="line">此方案包含 target &#x3D; 3 个街区，分别是 [&#123;1&#125;, &#123;2,2&#125;, &#123;1,1&#125;]。</span><br><span class="line">涂色的总花费为 (1 + 1 + 1 + 1 + 5) &#x3D; 9。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：houses &#x3D; [0,2,1,2,0], cost &#x3D; [[1,10],[10,1],[10,1],[1,10],[5,1]], m &#x3D; 5, n &#x3D; 2, target &#x3D; 3</span><br><span class="line">输出：11</span><br><span class="line">解释：有的房子已经被涂色了，在此基础上涂色方案为 [2,2,1,2,2]</span><br><span class="line">此方案包含 target &#x3D; 3 个街区，分别是 [&#123;2,2&#125;, &#123;1&#125;, &#123;2,2&#125;]。</span><br><span class="line">给第一个和最后一个房子涂色的花费为 (10 + 1) &#x3D; 11。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：houses &#x3D; [0,0,0,0,0], cost &#x3D; [[1,10],[10,1],[1,10],[10,1],[1,10]], m &#x3D; 5, n &#x3D; 2, target &#x3D; 5</span><br><span class="line">输出：5</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：houses = [<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], cost = [[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]], m = <span class="number">4</span>, n = <span class="number">3</span>, target = <span class="number">3</span></span><br><span class="line">输出：<span class="number">-1</span></span><br><span class="line">解释：房子已经被涂色并组成了 <span class="number">4</span> 个街区，分别是 [&#123;<span class="number">3</span>&#125;,&#123;<span class="number">1</span>&#125;,&#123;<span class="number">2</span>&#125;,&#123;<span class="number">3</span>&#125;] ，无法形成 target = <span class="number">3</span> 个街区。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">提示：</span><br><span class="line"></span><br><span class="line">m &#x3D;&#x3D; houses.length &#x3D;&#x3D; cost.length</span><br><span class="line">n &#x3D;&#x3D; cost[i].length</span><br><span class="line">1 &lt;&#x3D; m &lt;&#x3D; 100</span><br><span class="line">1 &lt;&#x3D; n &lt;&#x3D; 20</span><br><span class="line">1 &lt;&#x3D; target &lt;&#x3D; m</span><br><span class="line">0 &lt;&#x3D; houses[i] &lt;&#x3D; n</span><br><span class="line">1 &lt;&#x3D; cost[i][j] &lt;&#x3D; 10^4</span><br></pre></td></tr></table></figure>
+<h4 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h4><p><code>DP</code>思想。</p>
+<p>为什么会想到用<code>dp</code>呢?</p>
+<blockquote>
+<p>可以看到房子染色是一个接一个，有一个逐步染色的过程，一旦发现一个复杂的操作可以逐步进行，那么可以考虑<code>DP</code>。即<code>dp[第i步] = 某些运算(取最大或者最小等等操作){dp[第i-1步]...+当前操作对结果的影响}</code></p>
+</blockquote>
+<p><code>DP</code>的状态如何描述呢?</p>
+<blockquote>
+<p>选取染色的颜色以及有几个街区两个状态</p>
+<p><code>dp[i][j]</code>表示当前选取颜色<code>i</code>并且有<code>j</code>个街区</p>
+</blockquote>
+<p>加上上面<code>步数</code>这个状态变量,<code>dp</code>完整的描述是<code>dp[k][i][j]</code>（第<code>k</code>步，选取颜色<code>i</code>，有<code>j</code>个街区）</p>
+<p><code>DP</code>的状态如何转换呢?</p>
+<blockquote>
+<p>在找<code>DP</code>的状态转移方程时，可以想想当前的状态与之前的哪些状态相关</p>
+<p>这里<code>dp[k][i][j]</code>与<code>dp[k-1][...][...]</code>的状态有关</p>
+</blockquote>
+<p>对状态进行分类，每一类状态的状态转移方程是相同的。比如:</p>
+<blockquote>
+<p>要求解<code>dp[k][i][j]</code> 那么<code>dp[k-1][i][...]</code>的转移方式是一种</p>
+<p><code>dp[k][i][j]</code>与<code>dp[k-1][...][j-1]</code>的转移方式是另一种</p>
+</blockquote>
+<p>通过对<code>DP</code>的分析后，合理地设置初始条件就可以解出题目了（设置初始条件也有很多学问）。</p>
+<h4 id="实现示例-3"><a href="#实现示例-3" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minCost</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; houses, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; cost, <span class="keyword">int</span> m, <span class="keyword">int</span> n, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> NIL = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">dp</span><span class="params">(n+<span class="number">1</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(target+<span class="number">1</span>,NIL))</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> w=<span class="number">1</span>;w&lt;=m;w++)&#123;	<span class="comment">// 第w步</span></span><br><span class="line">            <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; tdp = <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; (n+<span class="number">1</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(target+<span class="number">1</span>,NIL));</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;	<span class="comment">// 选取第i中颜色</span></span><br><span class="line">                <span class="keyword">int</span> tcnt = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span>(houses[w<span class="number">-1</span>] &amp;&amp; i!= houses[w<span class="number">-1</span>]) <span class="keyword">continue</span>;	<span class="comment">// 已经染过色了，只能选取本身地颜色</span></span><br><span class="line">                <span class="keyword">if</span>(houses[w<span class="number">-1</span>])&#123;</span><br><span class="line">                    tcnt = <span class="number">0</span>;	<span class="comment">// 已经染过色了,而且选取本身的颜色，当前cost为0</span></span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    tcnt = cost[w<span class="number">-1</span>][i<span class="number">-1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;=n;j++)&#123;	<span class="comment">// 前一个房子的颜色</span></span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;=target;k++)&#123;	<span class="comment">// 有k个街区</span></span><br><span class="line">                        <span class="keyword">if</span>(i==j)&#123;	<span class="comment">// 当前选取地原色与前一个元素相同(街区数目不变)</span></span><br><span class="line">                            tdp[i][k] = <span class="built_in">min</span>(tdp[i][k],dp[j][k]+tcnt);</span><br><span class="line">                        &#125;<span class="keyword">else</span>&#123;	<span class="comment">// 当前选取地原色与前一个元素不同(街区数目加1)</span></span><br><span class="line">                            <span class="keyword">if</span>(k==<span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">                            tdp[i][k] = <span class="built_in">min</span>(tdp[i][k],dp[j][k<span class="number">-1</span>]+tcnt);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            dp = tdp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> res = NIL;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            res = <span class="built_in">min</span>(res,dp[i][target]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(res==NIL) <span class="keyword">return</span> <span class="number">-1</span>;	<span class="comment">// 无法找到满足条件地染色方案</span></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>注意，我的实现代码中采用了滚动数组进行优化，所以状态表示看上去好像是二维的，其实是因为采用滚动数组的原因，本质来说还是三维的状态。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>难度不大，第四题的在设置<code>tcnt</code>（当前选取的元素造成的<code>cost</code>）出现的一点点问题，花了一点时间调试，初始条件的设置也花了一点时间思考，其他地方按照<code>DP</code>思路写就行。</p>
+<p>第三题我觉得这个题目描述不是很好，好在题目不难。而且前面我也提到过这个是从<a href="https://blog.csdn.net/Solstice" target="_blank" rel="noopener">陈硕</a>写的开源网络库<a href="https://github.com/chenshuo/muduo" target="_blank" rel="noopener"><code>muduo</code></a>中的<code>buffer</code>的设计中获取到的灵感,这个也算是一点点的学以致用吧，哈哈。</p>
+<p>最后咧，还是那句话，刷题本身用处不大（面试时可能有点用），但是起码让你保持对你熟悉地编程语言地熟悉度，也许能从题目中获取一些解决类似的生活中、学习中、工作中的问题也说不定咧。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E5%8A%9B%E6%89%A3/" rel="tag"># 力扣</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/31/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B191/" rel="prev" title="力扣周赛191">
+      <i class="fa fa-chevron-left"></i> 力扣周赛191
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#重新排列数组"><span class="nav-number">1.</span> <span class="nav-text">重新排列数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述"><span class="nav-number">1.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-number">1.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例"><span class="nav-number">1.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组中的-k-个最强值"><span class="nav-number">2.</span> <span class="nav-text">数组中的 k 个最强值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-1"><span class="nav-number">2.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例-1"><span class="nav-number">2.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-1"><span class="nav-number">2.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例-1"><span class="nav-number">2.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计浏览器历史记录"><span class="nav-number">3.</span> <span class="nav-text">设计浏览器历史记录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-2"><span class="nav-number">3.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例-2"><span class="nav-number">3.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-2"><span class="nav-number">3.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例-2"><span class="nav-number">3.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给房子涂色-III"><span class="nav-number">4.</span> <span class="nav-text">给房子涂色 III</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-3"><span class="nav-number">4.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例-3"><span class="nav-number">4.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-3"><span class="nav-number">4.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例-3"><span class="nav-number">4.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Koala Xu</p>
+  <div class="site-description" itemprop="description">博观而约取，厚积而博发</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xyqkoala" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xyqkoala" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xyq_lawrence@163.com" title="E-Mail → mailto:xyq_lawrence@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Koala Xu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
