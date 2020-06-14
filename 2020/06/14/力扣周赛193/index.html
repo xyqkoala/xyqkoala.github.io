@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="这篇文章主要记录一下第193场力扣周赛的题目解答。以下是四个题目:  一维数组的动态和: 3分 不同整数的最少数目: 4分 制作 m 束花所需的最少天数: 5分 树节点的第 K 个祖先: 6分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="力扣周赛193">
+<meta property="og:url" content="http://yoursite.com/2020/06/14/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B193/index.html">
+<meta property="og:site_name" content="Koala Xu的随笔">
+<meta property="og:description" content="这篇文章主要记录一下第193场力扣周赛的题目解答。以下是四个题目:  一维数组的动态和: 3分 不同整数的最少数目: 4分 制作 m 束花所需的最少天数: 5分 树节点的第 K 个祖先: 6分">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/06/14/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B193/1528_ex1.png">
+<meta property="article:published_time" content="2020-06-14T03:58:33.000Z">
+<meta property="article:modified_time" content="2020-06-14T09:32:24.159Z">
+<meta property="article:author" content="Koala Xu">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="力扣">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/14/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B193/1528_ex1.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/06/14/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B193/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>力扣周赛193 | Koala Xu的随笔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Koala Xu的随笔</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Show Me Your Code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">10</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/14/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B193/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Koala Xu">
+      <meta itemprop="description" content="博观而约取，厚积而博发">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Koala Xu的随笔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          力扣周赛193
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-14 11:58:33 / 修改时间：17:32:24" itemprop="dateCreated datePublished" datetime="2020-06-14T11:58:33+08:00">2020-06-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">力扣周赛</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这篇文章主要记录一下第193场力扣周赛的题目解答。以下是四个题目:</p>
+<ol>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-193/problems/running-sum-of-1d-array/" target="_blank" rel="noopener">一维数组的动态和</a>: 3分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-193/problems/least-number-of-unique-integers-after-k-removals/" target="_blank" rel="noopener">不同整数的最少数目</a>: 4分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-193/problems/minimum-number-of-days-to-make-m-bouquets/" target="_blank" rel="noopener">制作 m 束花所需的最少天数</a>: 5分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-193/problems/kth-ancestor-of-a-tree-node/" target="_blank" rel="noopener">树节点的第 K 个祖先</a>: 6分</li>
+</ol>
+<a id="more"></a>
+<h3 id="一维数组的动态和"><a href="#一维数组的动态和" class="headerlink" title="一维数组的动态和"></a><a href="https://leetcode-cn.com/contest/weekly-contest-193/problems/running-sum-of-1d-array/" target="_blank" rel="noopener">一维数组的动态和</a></h3><h4 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h4><p>给你一个数组 <code>nums</code> 。数组「动态和」的计算公式为：<code>runningSum[i] = sum(nums[0]…nums[i])</code> 。</p>
+<p>请返回 <code>nums</code> 的动态和。</p>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums &#x3D; [1,2,3,4]</span><br><span class="line">输出：[1,3,6,10]</span><br><span class="line">解释：动态和计算过程为 [1, 1+2, 1+2+3, 1+2+3+4] 。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums &#x3D; [1,1,1,1,1]</span><br><span class="line">输出：[1,2,3,4,5]</span><br><span class="line">解释：动态和计算过程为 [1, 1+1, 1+1+1, 1+1+1+1, 1+1+1+1+1] 。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums &#x3D; [1,1,1,1,1]</span><br><span class="line">输出：[1,2,3,4,5]</span><br><span class="line">解释：动态和计算过程为 [1, 1+1, 1+1+1, 1+1+1+1, 1+1+1+1+1] 。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums &#x3D; [3,1,2,10,1]</span><br><span class="line">输出：[3,4,6,16,17]</span><br></pre></td></tr></table></figure>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>前缀和直接保存就可以了。</p>
+<h4 id="实现示例"><a href="#实现示例" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">runningSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            sum+=nums[i];   <span class="comment">// 前缀和</span></span><br><span class="line">            res[i] = sum;   <span class="comment">// 保存至结果</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="不同整数的最少数目"><a href="#不同整数的最少数目" class="headerlink" title="不同整数的最少数目"></a><a href="https://leetcode-cn.com/contest/weekly-contest-193/problems/least-number-of-unique-integers-after-k-removals/" target="_blank" rel="noopener">不同整数的最少数目</a></h3><h4 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h4><p>给你一个整数数组 <code>arr</code> 和一个整数 <code>k</code> 。现需要从数组中恰好移除 <code>k</code> 个元素，请找出移除后数组中不同整数的最少数目。</p>
+<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：arr &#x3D; [5,5,4], k &#x3D; 1</span><br><span class="line">输出：1</span><br><span class="line">解释：移除 1 个 4 ，数组中只剩下 5 一种整数。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：arr &#x3D; [4,3,1,1,3,3,2], k &#x3D; 3</span><br><span class="line">输出：2</span><br><span class="line">解释：先移除 4、2 ，然后再移除两个 1 中的任意 1 个或者三个 3 中的任意 1 个，最后剩下 1 和 3 两种整数。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">提示：</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; arr.length &lt;&#x3D; 10^5</span><br><span class="line">1 &lt;&#x3D; arr[i] &lt;&#x3D; 10^9</span><br><span class="line">0 &lt;&#x3D; k &lt;&#x3D; arr.length</span><br></pre></td></tr></table></figure>
+<h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><p>贪心思想，移除<code>k</code>个出现次数最少的元素，能让结果最大。</p>
+<h4 id="实现示例-1"><a href="#实现示例-1" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findLeastNumOfUniqueInts</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; t;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> item:arr)&#123; <span class="comment">// 缓存每个元素的出现次数</span></span><br><span class="line">            t[item]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> item:t)&#123;   <span class="comment">// 保存出现次数</span></span><br><span class="line">            res.push_back(item.second); </span><br><span class="line">        &#125;</span><br><span class="line">        sort(res.<span class="built_in">begin</span>(),res.<span class="built_in">end</span>());<span class="comment">// 排序出现次数</span></span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = res.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;   <span class="comment">// 贪心地减去出现次数少地元素</span></span><br><span class="line">            <span class="keyword">if</span>(k&lt;res[i])&#123;</span><br><span class="line">                ans = n-i;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            k-=res[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="制作-m-束花所需的最少天数"><a href="#制作-m-束花所需的最少天数" class="headerlink" title="制作 m 束花所需的最少天数"></a><a href="https://leetcode-cn.com/contest/weekly-contest-193/problems/minimum-number-of-days-to-make-m-bouquets/" target="_blank" rel="noopener">制作 m 束花所需的最少天数</a></h3><h4 id="描述-2"><a href="#描述-2" class="headerlink" title="描述"></a>描述</h4><p>给你一个整数数组 <code>bloomDay</code>，以及两个整数 <code>m</code> 和 <code>k</code> 。</p>
+<p>现需要制作 <code>m</code> 束花。制作花束时，需要使用花园中 <strong>相邻的 <code>k</code> 朵花</strong> 。</p>
+<p>花园中有 <code>n</code> 朵花，第 <code>i</code> 朵花会在 <code>bloomDay[i]</code> 时盛开，<strong>恰好</strong> 可以用于 <strong>一束</strong> 花中。</p>
+<p>请你返回从花园中摘 <code>m</code> 束花需要等待的最少的天数。如果不能摘到 <code>m</code> 束花则返回 <strong>-1</strong> 。</p>
+<h4 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：bloomDay &#x3D; [1,10,3,10,2], m &#x3D; 3, k &#x3D; 1</span><br><span class="line">输出：3</span><br><span class="line">解释：让我们一起观察这三天的花开过程，x 表示花开，而 _ 表示花还未开。</span><br><span class="line">现在需要制作 3 束花，每束只需要 1 朵。</span><br><span class="line">1 天后：[x, _, _, _, _]   &#x2F;&#x2F; 只能制作 1 束花</span><br><span class="line">2 天后：[x, _, _, _, x]   &#x2F;&#x2F; 只能制作 2 束花</span><br><span class="line">3 天后：[x, _, x, _, x]   &#x2F;&#x2F; 可以制作 3 束花，答案为 3</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：bloomDay &#x3D; [1,10,3,10,2], m &#x3D; 3, k &#x3D; 2</span><br><span class="line">输出：-1</span><br><span class="line">解释：要制作 3 束花，每束需要 2 朵花，也就是一共需要 6 朵花。而花园中只有 5 朵花，无法满足制作要求，返回 -1 。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：bloomDay &#x3D; [7,7,7,7,12,7,7], m &#x3D; 2, k &#x3D; 3</span><br><span class="line">输出：12</span><br><span class="line">解释：要制作 2 束花，每束需要 3 朵。</span><br><span class="line">花园在 7 天后和 12 天后的情况如下：</span><br><span class="line">7 天后：[x, x, x, x, _, x, x]</span><br><span class="line">可以用前 3 朵盛开的花制作第一束花。但不能使用后 3 朵盛开的花，因为它们不相邻。</span><br><span class="line">12 天后：[x, x, x, x, x, x, x]</span><br><span class="line">显然，我们可以用不同的方式制作两束花。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：bloomDay &#x3D; [1000000000,1000000000], m &#x3D; 1, k &#x3D; 1</span><br><span class="line">输出：1000000000</span><br><span class="line">解释：需要等 1000000000 天才能采到花来制作花束</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：bloomDay &#x3D; [1,10,2,9,3,8,4,7,5,6], m &#x3D; 4, k &#x3D; 2</span><br><span class="line">输出：9</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">提示：</span><br><span class="line"></span><br><span class="line">bloomDay.length &#x3D;&#x3D; n</span><br><span class="line">1 &lt;&#x3D; n &lt;&#x3D; 10^5</span><br><span class="line">1 &lt;&#x3D; bloomDay[i] &lt;&#x3D; 10^9</span><br><span class="line">1 &lt;&#x3D; m &lt;&#x3D; 10^6</span><br><span class="line">1 &lt;&#x3D; k &lt;&#x3D; n</span><br></pre></td></tr></table></figure>
+<h4 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h4><p>二分加贪心。</p>
+<h4 id="实现示例-2"><a href="#实现示例-2" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums,<span class="keyword">int</span> mid,<span class="keyword">int</span> m,<span class="keyword">int</span> k)</span></span>&#123;   <span class="comment">// 判断mid天以后能制成多少束花</span></span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;    <span class="comment">// 相连已开花元素的个数</span></span><br><span class="line">        <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;    <span class="comment">// 能制成的花的束数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;   <span class="comment">// 贪心地选取已开花相连元素</span></span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;=mid)&#123;</span><br><span class="line">                cnt+=<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                cnt=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cnt&gt;=k)&#123;     <span class="comment">// 已开花相连元素地个数大于等于k，构成一束花</span></span><br><span class="line">                res++;</span><br><span class="line">                cnt = <span class="number">0</span>;    <span class="comment">// 将已开花相连元素地个数置为0</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minDays</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; bd, <span class="keyword">int</span> m, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = bd.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>((m*k)&gt;n) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">1e9</span>+<span class="number">1</span>;  <span class="comment">// 右端点</span></span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>;  <span class="comment">// 左端点</span></span><br><span class="line">        <span class="keyword">while</span>(l&lt;r)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (r-l)/<span class="number">2</span>+l;</span><br><span class="line">            <span class="keyword">if</span>(check(bd,mid,m,k)&gt;=m)&#123;r = mid;&#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;l=mid+<span class="number">1</span>;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> l;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>二分的题目还是很多的，也有很多变化，我这篇<a href="https://leetcode-cn.com/problems/find-positive-integer-solution-for-a-given-equation/solution/shuang-zhi-zhen-da-biao-fen-xi-by-xyqkoala/" target="_blank" rel="noopener">题解</a>中提到了二分的使用，有兴趣的可以去看一下。</p>
+<p>对于这类<code>贪心+二分</code>的题目，这里做一个简单的列举：</p>
+<ol>
+<li><a href="https://leetcode-cn.com/problems/capacity-to-ship-packages-within-d-days/" target="_blank" rel="noopener">在 D 天内送达包裹的能力</a></li>
+<li><a href="https://leetcode-cn.com/problems/ugly-number-iii/" target="_blank" rel="noopener">丑数III</a></li>
+<li><a href="https://leetcode-cn.com/problems/search-insert-position/" target="_blank" rel="noopener">搜索插入位置</a>(二分基础题)</li>
+</ol>
+<p>对于<code>二分</code>算法来说，主要有三种区间分割形式：<code>[l,r]</code>以及<code>l</code>与<code>r</code>的中点<code>m</code>：</p>
+<ol>
+<li><code>[l,m-1]</code>,<code>[m,m]</code>,<code>[m+1,r]</code></li>
+<li><code>[l,m-1]</code>以及<code>[m,r]</code></li>
+<li><code>[l,m]</code>以及<code>[m,r]</code></li>
+</ol>
+<p>这个地方说的非常笼统，你可以从<a href="https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/solution/er-fen-cha-zhao-suan-fa-xi-jie-xiang-jie-by-labula/" target="_blank" rel="noopener">这个题解</a>中找到思路以及相应的解释。那是<a href="https://leetcode-cn.com/u/labuladong/" target="_blank" rel="noopener">作者</a>的关于<code>二分查找</code>的总结。我觉得总结得挺好的，看懂后用上面的题目去练练手，可以巩固一下。我推荐第二种分割方式，上面的代码示例也是采用第二种区间分割方式，这样二分写起来更容易一点，不过这是我个人的感觉，你也可以按照你自己的理解来写二分。不过上面链接中关于<code>二分</code>思路的分析与梳理，是十分优秀的，值得一看。</p>
+<h3 id="树节点的第-K-个祖先"><a href="#树节点的第-K-个祖先" class="headerlink" title="树节点的第 K 个祖先"></a><a href="https://leetcode-cn.com/contest/weekly-contest-193/problems/kth-ancestor-of-a-tree-node/" target="_blank" rel="noopener">树节点的第 K 个祖先</a></h3><h4 id="描述-3"><a href="#描述-3" class="headerlink" title="描述"></a>描述</h4><p>给你一棵树，树上有 <code>n</code> 个节点，按从 <code>0</code> 到 <code>n-1</code> 编号。树以父节点数组的形式给出，其中 <code>parent[i]</code> 是节点 <code>i</code> 的父节点。树的根节点是编号为 <code>0</code> 的节点。</p>
+<p>请你设计并实现 <code>getKthAncestor(int node, int k)</code> 函数，函数返回节点 <code>node</code> 的第 <code>k</code> 个祖先节点。如果不存在这样的祖先节点，返回 <code>-1</code> 。</p>
+<p>树节点的第 <em><code>k</code></em> 个祖先节点是从该节点到根节点路径上的第 <code>k</code> 个节点。</p>
+<h4 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h4><p><img src="/2020/06/14/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B193/1528_ex1.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">[&quot;TreeAncestor&quot;,&quot;getKthAncestor&quot;,&quot;getKthAncestor&quot;,&quot;getKthAncestor&quot;]</span><br><span class="line">[[7,[-1,0,0,1,1,2,2]],[3,1],[5,2],[6,3]]</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">[null,1,0,-1]</span><br><span class="line"></span><br><span class="line">解释：</span><br><span class="line">TreeAncestor treeAncestor &#x3D; new TreeAncestor(7, [-1, 0, 0, 1, 1, 2, 2]);</span><br><span class="line"></span><br><span class="line">treeAncestor.getKthAncestor(3, 1);  &#x2F;&#x2F; 返回 1 ，它是 3 的父节点</span><br><span class="line">treeAncestor.getKthAncestor(5, 2);  &#x2F;&#x2F; 返回 0 ，它是 5 的祖父节点</span><br><span class="line">treeAncestor.getKthAncestor(6, 3);  &#x2F;&#x2F; 返回 -1 因为不存在满足要求的祖先节点</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 &lt;&#x3D; k &lt;&#x3D; n &lt;&#x3D; 5*10^4</span><br><span class="line">parent[0] &#x3D;&#x3D; -1 表示编号为 0 的节点是根节点。</span><br><span class="line">对于所有的 0 &lt; i &lt; n ，0 &lt;&#x3D; parent[i] &lt; n 总成立</span><br><span class="line">0 &lt;&#x3D; node &lt; n</span><br><span class="line">至多查询 5*10^4 次</span><br></pre></td></tr></table></figure>
+<h4 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h4><p>这个题目先动手写一下暴力<code>DFS</code>，可以看到会超时(我因此WA了一次)。</p>
+<p>问一：为什么会超时?</p>
+<blockquote>
+<p>一般出现超时大部分情况是因为搜索了重复的空间，这里说一下<code>DP</code>，<code>DP</code>思想正是这么优化算法的。</p>
+</blockquote>
+<p>问二：哪个地方搜索了重复空间呢?</p>
+<blockquote>
+<p>比如有一条从叶子节点到根节点<code>0</code>的路径: 9 &gt; 8 &gt; 7 &gt; 6 &gt; 5 &gt; 4 &gt; 3 &gt; 2 &gt; 1 &gt; 0</p>
+<p>现在要求解节点<code>9</code>的第<code>6</code>个父节点，明显是<code>3</code>,然后还要求解节点<code>5</code>的第<code>4</code>个父节点，明显是<code>5</code>,这里就有重复的搜索路径: 9 &gt; 8 &gt; 7 &gt; 6 &gt; 5</p>
+</blockquote>
+<p>问三：有啥解决方法呢？</p>
+<blockquote>
+<p>仍然求解：节点<code>9</code>的第<code>6</code>个父节点。</p>
+<p>采用中间结果缓存。如果我们知道<code>9</code>的第<code>4</code>个父亲节点（<code>5</code>）,那么我们可以先一步跳转到节点<code>5</code>,然后再跳转<code>2</code>步就可以了，这样就不必重复走9 &gt;8 &gt; 7 &gt; 6 &gt; 5这条路径了。</p>
+</blockquote>
+<p>问四：咋实现呢？</p>
+<blockquote>
+<ol>
+<li>我们有什么?</li>
+</ol>
+<p>每个节点跳转一步的父节点。</p>
+<ol>
+<li>如何缓存?</li>
+</ol>
+<p>1步的跳转位置我们知道，那么2步的跳转位置容易求得。(将一步的跳转进行两次)</p>
+<p>2步的跳转位置我们知道，那么4步的跳转位置容易得到。(将两步的跳转进行两次）</p>
+<p>同理容易得到4步，8步…的跳转位置</p>
+</blockquote>
+<h4 id="实现示例-3"><a href="#实现示例-3" class="headerlink" title="实现示例"></a>实现示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeAncestor</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    TreeAncestor(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; parent) &#123;</span><br><span class="line">        factor = <span class="number">12</span>;</span><br><span class="line">        <span class="comment">// t[0]保存跳转1次的父亲节点</span></span><br><span class="line">        <span class="comment">// t[1]保存跳转2次的父亲节点</span></span><br><span class="line">        <span class="comment">// t[2]保存跳转4次的父亲节点</span></span><br><span class="line">        <span class="comment">// 依次类推</span></span><br><span class="line">        t = <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;(factor,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n,<span class="number">-1</span>));</span><br><span class="line">        t[<span class="number">0</span>] = parent;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;factor;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">                <span class="keyword">int</span> node = j;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;<span class="number">2</span>;k++)&#123;</span><br><span class="line">                    node = t[i<span class="number">-1</span>][node];</span><br><span class="line">                    <span class="keyword">if</span>(node==<span class="number">-1</span>) <span class="keyword">break</span>;	<span class="comment">// 处理已经跳出根节点</span></span><br><span class="line">                &#125;</span><br><span class="line">                t[i][j] = node;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> node,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = node;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=(factor<span class="number">-1</span>);i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">int</span> base = <span class="number">1</span>&lt;&lt;i;	<span class="comment">// 跳转base步的父亲节点</span></span><br><span class="line">            <span class="keyword">while</span>(k&gt;=base)&#123;	<span class="comment">// 跳转base步直到父亲节点为-1或者k为0</span></span><br><span class="line">                k-=base;</span><br><span class="line">                res = t[i][res];</span><br><span class="line">                <span class="keyword">if</span>(res==<span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>;	</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(k==<span class="number">0</span>) <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getKthAncestor</span><span class="params">(<span class="keyword">int</span> node, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> dfs(node,k);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; t;</span><br><span class="line">    <span class="keyword">int</span> factor;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在比赛的过程当中采用过一些其他的方式缓存中间结果，但仍然超时，如果有其他的解法，非常希望您能够给我分享一下，一起交流一波。</p>
+<p>这个题我感觉还是很好的题目，很有价值的题目。好多高手瞬间就<code>AK</code>了，真的强👍。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这周的题目难度还是可以的，还是熟悉的前三题很快结束，第四题需要调试一波。</p>
+<p><code>二分+贪心</code>的题目还是很多的，也有不同等级难度的题目，多写写就熟悉了。</p>
+<p><code>缓存</code>中间结果的思路在算法、软件工程以及其他领域都有非常广泛的应用，值得推敲。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E5%8A%9B%E6%89%A3/" rel="tag"># 力扣</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/07/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B192/" rel="prev" title="力扣周赛192">
+      <i class="fa fa-chevron-left"></i> 力扣周赛192
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一维数组的动态和"><span class="nav-number">1.</span> <span class="nav-text">一维数组的动态和</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述"><span class="nav-number">1.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-number">1.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例"><span class="nav-number">1.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同整数的最少数目"><span class="nav-number">2.</span> <span class="nav-text">不同整数的最少数目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-1"><span class="nav-number">2.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例-1"><span class="nav-number">2.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-1"><span class="nav-number">2.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例-1"><span class="nav-number">2.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#制作-m-束花所需的最少天数"><span class="nav-number">3.</span> <span class="nav-text">制作 m 束花所需的最少天数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-2"><span class="nav-number">3.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例-2"><span class="nav-number">3.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-2"><span class="nav-number">3.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例-2"><span class="nav-number">3.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树节点的第-K-个祖先"><span class="nav-number">4.</span> <span class="nav-text">树节点的第 K 个祖先</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-3"><span class="nav-number">4.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例-3"><span class="nav-number">4.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-3"><span class="nav-number">4.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现示例-3"><span class="nav-number">4.4.</span> <span class="nav-text">实现示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Koala Xu</p>
+  <div class="site-description" itemprop="description">博观而约取，厚积而博发</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xyqkoala" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xyqkoala" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xyq_lawrence@163.com" title="E-Mail → mailto:xyq_lawrence@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Koala Xu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
