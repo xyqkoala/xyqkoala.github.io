@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="这篇文章主要记录一下第201场力扣周赛的题目解答。以下是四个题目:  整理字符串 : 3分 找出第 N 个二进制字符串中的第 K 位: 4分 和为目标值的最大数目不重叠非空子数组数目：6分 切棍子的最小成本：7分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="力扣周赛201">
+<meta property="og:url" content="http://yoursite.com/2020/08/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B201/index.html">
+<meta property="og:site_name" content="Koala Xu的随笔">
+<meta property="og:description" content="这篇文章主要记录一下第201场力扣周赛的题目解答。以下是四个题目:  整理字符串 : 3分 找出第 N 个二进制字符串中的第 K 位: 4分 和为目标值的最大数目不重叠非空子数组数目：6分 切棍子的最小成本：7分">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-10T00:31:25.000Z">
+<meta property="article:modified_time" content="2020-08-10T01:49:25.174Z">
+<meta property="article:author" content="Koala Xu">
+<meta property="article:tag" content="力扣">
+<meta property="article:tag" content="动态规划">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B201/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>力扣周赛201 | Koala Xu的随笔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Koala Xu的随笔</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Show Me Your Code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">8</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">13</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B201/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Koala Xu">
+      <meta itemprop="description" content="博观而约取，厚积而博发">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Koala Xu的随笔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          力扣周赛201
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-10 08:31:25 / 修改时间：09:49:25" itemprop="dateCreated datePublished" datetime="2020-08-10T08:31:25+08:00">2020-08-10</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这篇文章主要记录一下第201场力扣周赛的题目解答。以下是四个题目:</p>
+<ol>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-201/problems/make-the-string-great/" target="_blank" rel="noopener">整理字符串</a> : 3分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-201/problems/find-kth-bit-in-nth-binary-string/" target="_blank" rel="noopener">找出第 N 个二进制字符串中的第 K 位</a>: 4分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-201/problems/maximum-number-of-non-overlapping-subarrays-with-sum-equals-target/" target="_blank" rel="noopener">和为目标值的最大数目不重叠非空子数组数目</a>：6分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-201/problems/minimum-cost-to-cut-a-stick/" target="_blank" rel="noopener">切棍子的最小成本</a>：7分</li>
+</ol>
+<a id="more"></a>
+<h3 id="整理字符串"><a href="#整理字符串" class="headerlink" title="整理字符串"></a><a href="https://leetcode-cn.com/contest/weekly-contest-201/problems/make-the-string-great/" target="_blank" rel="noopener">整理字符串</a></h3><p>题目的意思是: 相连的两个字母如果分别是同一个字母的大小写形式，那么这两个字母要删除，而且要进行删除操作直到不能删除为止。</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>栈。用栈保存状态。</p>
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">makeGood</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// stack&lt;char&gt; stk;</span></span><br><span class="line">        <span class="keyword">auto</span> check=[](<span class="keyword">char</span> c)&#123;	<span class="comment">// 这个函数是判断字母是否为大写</span></span><br><span class="line">            pair&lt;<span class="keyword">int</span>,<span class="keyword">char</span>&gt; t;</span><br><span class="line">            <span class="keyword">if</span>(c&lt;=<span class="string">'Z'</span> &amp;&amp; c&gt;=<span class="string">'A'</span>) &#123;</span><br><span class="line">                t.first = <span class="number">-1</span>;</span><br><span class="line">                t.second = c-<span class="string">'A'</span>+<span class="string">'a'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                t.first = <span class="number">1</span>;</span><br><span class="line">                t.second = c;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> t;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="built_in">string</span> res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> item:s)&#123;</span><br><span class="line">            <span class="keyword">if</span>(res.empty())&#123;</span><br><span class="line">                res.push_back(item);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">auto</span> lr = check(res.back());</span><br><span class="line">            <span class="keyword">auto</span> rr = check(item);</span><br><span class="line">            <span class="keyword">if</span>(lr.first!=rr.first &amp;&amp; lr.second == rr.second)&#123;	<span class="comment">// 两字母大小写形式不同 &amp;&amp; 是同一个字母 -&gt; 删除两个字母</span></span><br><span class="line">                res.pop_back();</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                res.push_back(item);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个题目难度不大，在比赛的过程中我看掉了条件:要是相同字母的条件，一直WA。心态崩了。。。</p>
+<h3 id="找出第-N-个二进制字符串中的第-K-位"><a href="#找出第-N-个二进制字符串中的第-K-位" class="headerlink" title="找出第 N 个二进制字符串中的第 K 位"></a><a href="https://leetcode-cn.com/contest/weekly-contest-201/problems/find-kth-bit-in-nth-binary-string/" target="_blank" rel="noopener">找出第 N 个二进制字符串中的第 K 位</a></h3><p>题目的意思已经描述地很清楚了。就是要求一个生成的字符串的第k位字符。</p>
+<h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><p><code>DFS</code>,我们可以从字符串的生成规则中看到:字符串具有“对称性”(左半部分与右半部分具有类似的结构)。因此，如果k位于左半部分中，那么问题的规模就减小了一半。如果在右半部分中，我们可以从左半部分的某个对应位置来简化问题规模。</p>
+<h4 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> k,<span class="keyword">bool</span> f)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>) <span class="keyword">return</span> f;	<span class="comment">// 递归基</span></span><br><span class="line">        <span class="keyword">int</span> cnt = (<span class="number">1</span>&lt;&lt;n)<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> tcnt = cnt/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(k&lt;=tcnt) <span class="keyword">return</span> dfs(n<span class="number">-1</span>,k,f);	<span class="comment">// 位于正中间</span></span><br><span class="line">        <span class="keyword">if</span>(k==(tcnt+<span class="number">1</span>)) <span class="keyword">return</span> !f;</span><br><span class="line">        k = <span class="number">2</span>*tcnt+<span class="number">2</span>-k;	<span class="comment">// 右侧k转化到左侧的对应位置</span></span><br><span class="line">        <span class="keyword">return</span> dfs(n<span class="number">-1</span>,k,!f);	<span class="comment">// 递归</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">findKthBit</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> f = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> dfs(n,k,f)+<span class="string">'0'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="和为目标值的最大数目不重叠非空子数组数目"><a href="#和为目标值的最大数目不重叠非空子数组数目" class="headerlink" title="和为目标值的最大数目不重叠非空子数组数目"></a><a href="https://leetcode-cn.com/contest/weekly-contest-201/problems/maximum-number-of-non-overlapping-subarrays-with-sum-equals-target/" target="_blank" rel="noopener">和为目标值的最大数目不重叠非空子数组数目</a></h3><p>题意是说，找到一些子数组，这些子数组的和都为指定的<code>target</code>,而且这些子数组不重叠，求这些子数组的个数的最大值。</p>
+<h4 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h4><p><code>DP+前缀和+hashmap</code></p>
+<p>用<code>前缀和+hashmap</code>来找到目标和为<code>target</code>的子数组，用<code>dp</code>来保存状态。</p>
+<ol>
+<li><code>DP</code>思想</li>
+</ol>
+<blockquote>
+<p><code>dp[i+1]</code>与<code>dp[i]</code>的关系</p>
+<p>$dp[i+1] = max(dp[i],dp[j]+1),(\sum_{k=j+1}^{k\le(i+1)}arr[k] = target)$</p>
+<p>如果有多个索引$j$满足条件呢,只需要保存离$i+1$最近的$j$即可，因为:</p>
+<p>$dp[i]\ge dp[j],若(i\ge j)$</p>
+</blockquote>
+<ol>
+<li>​    <code>前缀和+hashmap</code>思想</li>
+</ol>
+<blockquote>
+<p>上面的<code>DP</code>的状态转移方程的<code>j</code>如何找到在内呢?</p>
+<p>朴素的办法是从$i+1$前向累加，找到一个和为<code>target</code>的子数组。</p>
+<p>这样的话，复杂度为$O(n^2)$,根据数据范围，肯定会超时，这里我们就可以用到<code>前缀和+hashmap</code>了。</p>
+<p>具体来说:哈希表中保存（前缀和 -&gt; 索引）键值对。如果当前的前缀和为<code>sum</code>,那么我们只需要判断哈希表中是否存在<code>前缀和</code>(key)为<code>sum-target</code>的键值对，有的话，索引(值)就是上面<code>DP</code>的状态转移方程的<code>j</code>。</p>
+</blockquote>
+<h4 id="代码示例-2"><a href="#代码示例-2" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxNonOverlapping</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(n+<span class="number">1</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; t;	<span class="comment">// 前缀和 -&gt; 索引 的hashmap</span></span><br><span class="line">        t[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tcnt = <span class="number">0</span>;	<span class="comment">// 保存前缀和</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            dp[i+<span class="number">1</span>] = dp[i];</span><br><span class="line">            tcnt+=nums[i];</span><br><span class="line">            <span class="keyword">if</span>(t.find(tcnt-target)!=t.end())&#123;	<span class="comment">// 是否存在前缀和为tcnt - target的键值对</span></span><br><span class="line">                dp[i+<span class="number">1</span>] = max(dp[i+<span class="number">1</span>],dp[t[tcnt-target]]+<span class="number">1</span>);	<span class="comment">// 状态转移</span></span><br><span class="line">            &#125;</span><br><span class="line">            t[tcnt] = i+<span class="number">1</span>;	<span class="comment">// 更新hashmap</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个题目还是很不错的，主思路是<code>DP</code>,然后考虑到要快速的状态转移，使用<code>前缀和+hashmap</code>。</p>
+<h3 id="切棍子的最小成本"><a href="#切棍子的最小成本" class="headerlink" title="切棍子的最小成本"></a><a href="https://leetcode-cn.com/contest/weekly-contest-201/problems/minimum-cost-to-cut-a-stick/" target="_blank" rel="noopener">切棍子的最小成本</a></h3><p>题意是：一段棍子，总长<code>n</code>切割一次的代价是<code>n</code>,求在<code>cuts</code>位置切割后的最小代价(切割顺序任意)。</p>
+<h4 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h4><p><code>DP</code>。</p>
+<p>这个就是典型的区间<code>DP</code>问题，解法同<a href="https://leetcode-cn.com/problems/minimum-cost-to-merge-stones/" target="_blank" rel="noopener">合并石头的最低成本</a>。</p>
+<p>这里有关于<a href="https://oi-wiki.org/dp/interval/" target="_blank" rel="noopener">区间dp</a>的解法。</p>
+<h4 id="代码示例-3"><a href="#代码示例-3" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minCost</span><span class="params">(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; cuts)</span> </span>&#123;</span><br><span class="line">        sort(cuts.<span class="built_in">begin</span>(),cuts.<span class="built_in">end</span>());</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums;</span><br><span class="line">        nums.push_back(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> item:cuts)&#123;nums.push_back(item);&#125;	<span class="comment">// 每段长</span></span><br><span class="line">        nums.push_back(n);</span><br><span class="line">        <span class="keyword">int</span> nil = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span> tn = cuts.<span class="built_in">size</span>()+<span class="number">1</span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">dp</span><span class="params">(tn,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(tn,nil))</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> len=<span class="number">1</span>;len&lt;=tn;len++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;(i+len)&lt;=tn;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(len==<span class="number">1</span>)&#123;</span><br><span class="line">                    dp[i][i] = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">int</span> j = i+len<span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k=i;k&lt;j;k++)&#123;</span><br><span class="line">                    dp[i][j] = <span class="built_in">min</span>(dp[i][j],nums[j+<span class="number">1</span>]-nums[i]+dp[i][k]+dp[k+<span class="number">1</span>][j]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">0</span>][tn<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>最近周赛的难度有所提高，总的来说题目难度不算很大，没有出现那种不知道思路的题目。题目的主要考察点是:</p>
+<ol>
+<li>数据结构栈</li>
+</ol>
+<blockquote>
+<p>看漏了字母要相同这个条件，WA了5次，一度天真的以为题目的评测机有问题。。。。</p>
+</blockquote>
+<ol>
+<li><code>DFS</code></li>
+</ol>
+<blockquote>
+<p>divide and conquer,降低问题的规模</p>
+</blockquote>
+<ol>
+<li><code>DP+前缀和+hashmap</code></li>
+</ol>
+<blockquote>
+<p><code>前缀和+hashmap</code>找子数组和，<code>DP</code>是主思路</p>
+</blockquote>
+<ol>
+<li><code>区间dp</code></li>
+</ol>
+<blockquote>
+<p>旧瓶装新酒，石子合并问题</p>
+</blockquote>
+<p>还是那句话，多写写代码，保持对代码的敏锐。</p>
+<p>最后，如果对题解有疑问或者有更好的解法，欢迎来邮件，一定知无不言，言无不尽。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8A%9B%E6%89%A3/" rel="tag"># 力扣</a>
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/06/%E7%94%BB%E9%A5%BC%E8%AE%A1%E5%88%92/" rel="prev" title="画饼计划">
+      <i class="fa fa-chevron-left"></i> 画饼计划
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#整理字符串"><span class="nav-number">1.</span> <span class="nav-text">整理字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">1.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码示例"><span class="nav-number">1.2.</span> <span class="nav-text">代码示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找出第-N-个二进制字符串中的第-K-位"><span class="nav-number">2.</span> <span class="nav-text">找出第 N 个二进制字符串中的第 K 位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-1"><span class="nav-number">2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码示例-1"><span class="nav-number">2.2.</span> <span class="nav-text">代码示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#和为目标值的最大数目不重叠非空子数组数目"><span class="nav-number">3.</span> <span class="nav-text">和为目标值的最大数目不重叠非空子数组数目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-2"><span class="nav-number">3.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码示例-2"><span class="nav-number">3.2.</span> <span class="nav-text">代码示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切棍子的最小成本"><span class="nav-number">4.</span> <span class="nav-text">切棍子的最小成本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-3"><span class="nav-number">4.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码示例-3"><span class="nav-number">4.2.</span> <span class="nav-text">代码示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Koala Xu</p>
+  <div class="site-description" itemprop="description">博观而约取，厚积而博发</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xyqkoala" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xyqkoala" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xyq_lawrence@163.com" title="E-Mail → mailto:xyq_lawrence@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Koala Xu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
