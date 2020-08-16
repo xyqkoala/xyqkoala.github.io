@@ -452,6 +452,9 @@
 <p>还是那句话，多写写代码，保持对代码的敏锐。</p>
 <p>最后，如果对题解有疑问或者有更好的解法，欢迎来邮件，一定知无不言，言无不尽。</p>
 ]]></content>
+      <categories>
+        <category>力扣周赛</category>
+      </categories>
       <tags>
         <tag>力扣</tag>
         <tag>动态规划</tag>
@@ -875,6 +878,75 @@
       </categories>
       <tags>
         <tag>画饼</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>力扣周赛202</title>
+    <url>/2020/08/16/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B202/</url>
+    <content><![CDATA[<p>这篇文章主要记录一下第202场力扣周赛的题目解答。以下是四个题目:</p>
+<ol>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/three-consecutive-odds/" target="_blank" rel="noopener">存在连续三个奇数的数组</a>：3分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/minimum-operations-to-make-array-equal/" target="_blank" rel="noopener">使数组中所有元素相等的最小操作数</a>：4分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/magnetic-force-between-two-balls/" target="_blank" rel="noopener">两球之间的磁力</a>：5分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/minimum-number-of-days-to-eat-n-oranges/" target="_blank" rel="noopener">吃掉 N 个橘子的最少天数</a>：6分</li>
+</ol>
+<a id="more"></a>
+<h3 id="存在连续三个奇数的数组"><a href="#存在连续三个奇数的数组" class="headerlink" title="存在连续三个奇数的数组"></a><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/three-consecutive-odds/" target="_blank" rel="noopener">存在连续三个奇数的数组</a></h3><p>题目意思是，如果有三个相连元素都为奇数，返回true，否则返回false。</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>暴力枚举。</p>
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">threeConsecutiveOdds</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = arr.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;(i+<span class="number">3</span>)&lt;=n;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[i]%<span class="number">2</span> &amp;&amp; arr[i+<span class="number">1</span>]%<span class="number">2</span> &amp;&amp; arr[i+<span class="number">2</span>]%<span class="number">2</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="使数组中所有元素相等的最小操作数"><a href="#使数组中所有元素相等的最小操作数" class="headerlink" title="使数组中所有元素相等的最小操作数"></a><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/minimum-operations-to-make-array-equal/" target="_blank" rel="noopener">使数组中所有元素相等的最小操作数</a></h3><p>题目意思是，给定的数列中，让所有数都变得相同，而且一次操作会改变两个数。</p>
+<h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><p>最后变成的数肯定都是<code>n</code>.那么每个数变成<code>n</code>需要操作多少次咧?每次操作可以让两个数更靠近<code>n</code>.因此，可以求每个数到<code>n</code>的距离之和(设为<code>s</code>),每次操作可以减少2，那么结果是<code>s/2</code>.</p>
+<h4 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minOperations</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            res += <span class="built_in">abs</span>(<span class="number">2</span>*i+<span class="number">1</span>-n);</span><br><span class="line">        &#125;</span><br><span class="line">        res/=<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>仔细分析一下，可以得出一个表达式。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minOperations</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> tn = n/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">return</span> tn*(n-tn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个题目还是挺容易的。仔细分析一下也可以很容易地得到上述表达式。</p>
+<h3 id="两球之间的磁力"><a href="#两球之间的磁力" class="headerlink" title="两球之间的磁力"></a><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/magnetic-force-between-two-balls/" target="_blank" rel="noopener">两球之间的磁力</a></h3><p>题意就是: 给定一些位置，给定一些磁石，在位置上放置磁石，让任意磁石之间的最短距离最大。</p>
+<h4 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h4><p>二分+贪心。</p>
+<p>这个题目在之前的周赛中也出现过类似，基本题意是让“最小距离最大”，”让最大距离最小”类似的问题。都是通过二分来求解的。这种题目还是挺常见的。</p>
+<h4 id="代码示例-2"><a href="#代码示例-2" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums,<span class="keyword">int</span> m)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> pre = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> dis = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            dis=nums[i]-pre;</span><br><span class="line">            <span class="keyword">if</span>(dis&gt;=m)&#123;</span><br><span class="line">                cnt++;</span><br><span class="line">                pre = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxDistance</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; pos, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">        sort(pos.<span class="built_in">begin</span>(),pos.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = pos.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> r = pos[n<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">while</span>(l&lt;r)&#123;	<span class="comment">// 二分</span></span><br><span class="line">            <span class="keyword">int</span> mid = (r-l)/<span class="number">2</span>+l;</span><br><span class="line">            <span class="keyword">if</span>(check(pos,mid)&lt;m) r = mid;	<span class="comment">// 二分条件</span></span><br><span class="line">            <span class="keyword">else</span> l = mid+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> l<span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>对于这类题目，我贴两个链接:</p>
+<ol>
+<li><p><a href="https://leetcode-cn.com/problems/split-array-largest-sum/" target="_blank" rel="noopener">410分割数组的最大值</a></p>
+</li>
+<li><p><a href="https://xyqkoala.github.io/2020/06/14/力扣周赛193/" target="_blank" rel="noopener">力扣周赛193题解</a></p>
+</li>
+</ol>
+<p>第2个链接中有关于二分的简要说明，也包含了如何正确地使用二分做了总结。二分还是非常重要的，之前面试的时候遇到的最多的就是二分的题目，希望能引起重视。</p>
+<h3 id="吃掉-N-个橘子的最少天数"><a href="#吃掉-N-个橘子的最少天数" class="headerlink" title="吃掉 N 个橘子的最少天数"></a><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/minimum-number-of-days-to-eat-n-oranges/" target="_blank" rel="noopener">吃掉 N 个橘子的最少天数</a></h3><p>题意就是将N变为0的操作次数。</p>
+<h4 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h4><p><code>DFS</code>+记忆化递归。</p>
+<p>总的来说，每次<code>n</code>有三种变化方式:</p>
+<ol>
+<li>$n-1$</li>
+<li>$n/2$</li>
+<li>$n/3$</li>
+</ol>
+<p>明显采用方式1，n的减少速度最慢。但是不能说，能够除3就除3，能够除2就除2，否则-1。这里当n为10时，就是一个反例。但是我们可以通过有限次数的操作先将n变成3或者2的倍数，再进行除法。这样就有了下面的记忆化递归。</p>
+<h4 id="代码示例-3"><a href="#代码示例-3" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> n,<span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &amp;dp)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(dp.<span class="built_in">find</span>(n) != dp.<span class="built_in">end</span>()) <span class="keyword">return</span> dp[n];</span><br><span class="line">        dp[n] = n;</span><br><span class="line">        dp[n] = <span class="built_in">min</span>(dp[n],(n%<span class="number">2</span>)+<span class="number">1</span>+dfs((n-(n%<span class="number">2</span>))/<span class="number">2</span>,dp));	<span class="comment">// 先变为2的倍数，再除2</span></span><br><span class="line">        dp[n] = <span class="built_in">min</span>(dp[n],(n%<span class="number">3</span>)+<span class="number">1</span>+dfs((n-(n%<span class="number">3</span>))/<span class="number">3</span>,dp));	<span class="comment">// 先变为3的倍数，再除3</span></span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minDays</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; dp;	<span class="comment">// 记忆化</span></span><br><span class="line">        <span class="keyword">return</span> dfs(n,dp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里我把我TLE的代码也贴出来:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span> <span class="comment">// TLE的代码</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> n,<span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &amp;dp)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(dp.<span class="built_in">find</span>(n) != dp.<span class="built_in">end</span>()) <span class="keyword">return</span> dp[n];</span><br><span class="line">        dp[n] = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">if</span>(n%<span class="number">2</span>==<span class="number">0</span>) dp[n] = <span class="built_in">min</span>(dp[n],<span class="number">1</span>+dfs(n/<span class="number">2</span>,dp));</span><br><span class="line">        <span class="keyword">if</span>(n%<span class="number">3</span>==<span class="number">0</span>) dp[n] = <span class="built_in">min</span>(dp[n],<span class="number">1</span>+dfs(n/<span class="number">3</span>,dp));</span><br><span class="line">        dp[n] = <span class="built_in">min</span>(dp[n],<span class="number">1</span>+dfs(n<span class="number">-1</span>,dp));	<span class="comment">// 这里使得复杂度为O(n)</span></span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minDays</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; dp;</span><br><span class="line">        <span class="keyword">return</span> dfs(n,dp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面TLE的代码是完全按照题意写的。仔细分析一下就可以将<code>-1</code>这种操作方式给省略掉。比如</p>
+<blockquote>
+<p>dp[n] = n</p>
+</blockquote>
+<p>第一种操作的实现隐藏在下面代码中(以除以2为例):</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">dp[n] = <span class="built_in">min</span>(dp[n],(n%<span class="number">2</span>)+<span class="number">1</span>+dfs((n-(n%<span class="number">2</span>))/<span class="number">2</span>,dp));	<span class="comment">// 先变为2的倍数，再除2</span></span><br></pre></td></tr></table></figure>
+<p>这里用先减去<code>n%2</code>变成2的倍数，再执行除2.把除2放在一边，减去<code>n%2</code>操作就包含了方式一的减1操作了，因此这样的代码是正确的、同时又避免了每次减1的O(n)复杂度的代码了。</p>
+<p>这样优化的代码我遇到地还比较少，TLE了一次。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>题目还是挺简单的，难度不大，好多高手在10分钟以内就搞定了，真的厉害👍。</p>
+<ol>
+<li>暴力枚举</li>
+<li>数学</li>
+<li>二分+贪心</li>
+<li>记忆化递归</li>
+</ol>
+<p>第1、2题很容易，按照题意求解即可。第3题有好多类似的二分题目，见过的话也能很快搞定。第4题的记忆化递归要稍微的分析一下，代码难度小，边界条件也很容易，难度不大。第4题TLE了一次。</p>
+]]></content>
+      <categories>
+        <category>力扣周赛</category>
+      </categories>
+      <tags>
+        <tag>二分</tag>
+        <tag>记忆化递归</tag>
       </tags>
   </entry>
 </search>

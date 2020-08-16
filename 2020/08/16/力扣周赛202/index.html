@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="这篇文章主要记录一下第202场力扣周赛的题目解答。以下是四个题目:  存在连续三个奇数的数组：3分 使数组中所有元素相等的最小操作数：4分 两球之间的磁力：5分 吃掉 N 个橘子的最少天数：6分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="力扣周赛202">
+<meta property="og:url" content="http://yoursite.com/2020/08/16/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B202/index.html">
+<meta property="og:site_name" content="Koala Xu的随笔">
+<meta property="og:description" content="这篇文章主要记录一下第202场力扣周赛的题目解答。以下是四个题目:  存在连续三个奇数的数组：3分 使数组中所有元素相等的最小操作数：4分 两球之间的磁力：5分 吃掉 N 个橘子的最少天数：6分">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-16T06:33:10.000Z">
+<meta property="article:modified_time" content="2020-08-16T07:45:44.216Z">
+<meta property="article:author" content="Koala Xu">
+<meta property="article:tag" content="二分">
+<meta property="article:tag" content="记忆化递归">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/16/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B202/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>力扣周赛202 | Koala Xu的随笔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Koala Xu的随笔</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Show Me Your Code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">10</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">14</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/16/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B202/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Koala Xu">
+      <meta itemprop="description" content="博观而约取，厚积而博发">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Koala Xu的随笔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          力扣周赛202
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-16 14:33:10 / 修改时间：15:45:44" itemprop="dateCreated datePublished" datetime="2020-08-16T14:33:10+08:00">2020-08-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">力扣周赛</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这篇文章主要记录一下第202场力扣周赛的题目解答。以下是四个题目:</p>
+<ol>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/three-consecutive-odds/" target="_blank" rel="noopener">存在连续三个奇数的数组</a>：3分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/minimum-operations-to-make-array-equal/" target="_blank" rel="noopener">使数组中所有元素相等的最小操作数</a>：4分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/magnetic-force-between-two-balls/" target="_blank" rel="noopener">两球之间的磁力</a>：5分</li>
+<li><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/minimum-number-of-days-to-eat-n-oranges/" target="_blank" rel="noopener">吃掉 N 个橘子的最少天数</a>：6分</li>
+</ol>
+<a id="more"></a>
+<h3 id="存在连续三个奇数的数组"><a href="#存在连续三个奇数的数组" class="headerlink" title="存在连续三个奇数的数组"></a><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/three-consecutive-odds/" target="_blank" rel="noopener">存在连续三个奇数的数组</a></h3><p>题目意思是，如果有三个相连元素都为奇数，返回true，否则返回false。</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>暴力枚举。</p>
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">threeConsecutiveOdds</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = arr.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;(i+<span class="number">3</span>)&lt;=n;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[i]%<span class="number">2</span> &amp;&amp; arr[i+<span class="number">1</span>]%<span class="number">2</span> &amp;&amp; arr[i+<span class="number">2</span>]%<span class="number">2</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="使数组中所有元素相等的最小操作数"><a href="#使数组中所有元素相等的最小操作数" class="headerlink" title="使数组中所有元素相等的最小操作数"></a><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/minimum-operations-to-make-array-equal/" target="_blank" rel="noopener">使数组中所有元素相等的最小操作数</a></h3><p>题目意思是，给定的数列中，让所有数都变得相同，而且一次操作会改变两个数。</p>
+<h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><p>最后变成的数肯定都是<code>n</code>.那么每个数变成<code>n</code>需要操作多少次咧?每次操作可以让两个数更靠近<code>n</code>.因此，可以求每个数到<code>n</code>的距离之和(设为<code>s</code>),每次操作可以减少2，那么结果是<code>s/2</code>.</p>
+<h4 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minOperations</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            res += <span class="built_in">abs</span>(<span class="number">2</span>*i+<span class="number">1</span>-n);</span><br><span class="line">        &#125;</span><br><span class="line">        res/=<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>仔细分析一下，可以得出一个表达式。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minOperations</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> tn = n/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">return</span> tn*(n-tn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个题目还是挺容易的。仔细分析一下也可以很容易地得到上述表达式。</p>
+<h3 id="两球之间的磁力"><a href="#两球之间的磁力" class="headerlink" title="两球之间的磁力"></a><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/magnetic-force-between-two-balls/" target="_blank" rel="noopener">两球之间的磁力</a></h3><p>题意就是: 给定一些位置，给定一些磁石，在位置上放置磁石，让任意磁石之间的最短距离最大。</p>
+<h4 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h4><p>二分+贪心。</p>
+<p>这个题目在之前的周赛中也出现过类似，基本题意是让“最小距离最大”，”让最大距离最小”类似的问题。都是通过二分来求解的。这种题目还是挺常见的。</p>
+<h4 id="代码示例-2"><a href="#代码示例-2" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums,<span class="keyword">int</span> m)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> pre = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> dis = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            dis=nums[i]-pre;</span><br><span class="line">            <span class="keyword">if</span>(dis&gt;=m)&#123;</span><br><span class="line">                cnt++;</span><br><span class="line">                pre = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxDistance</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; pos, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">        sort(pos.<span class="built_in">begin</span>(),pos.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = pos.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> r = pos[n<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">while</span>(l&lt;r)&#123;	<span class="comment">// 二分</span></span><br><span class="line">            <span class="keyword">int</span> mid = (r-l)/<span class="number">2</span>+l;</span><br><span class="line">            <span class="keyword">if</span>(check(pos,mid)&lt;m) r = mid;	<span class="comment">// 二分条件</span></span><br><span class="line">            <span class="keyword">else</span> l = mid+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> l<span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>对于这类题目，我贴两个链接:</p>
+<ol>
+<li><p><a href="https://leetcode-cn.com/problems/split-array-largest-sum/" target="_blank" rel="noopener">410分割数组的最大值</a></p>
+</li>
+<li><p><a href="https://xyqkoala.github.io/2020/06/14/力扣周赛193/" target="_blank" rel="noopener">力扣周赛193题解</a></p>
+</li>
+</ol>
+<p>第2个链接中有关于二分的简要说明，也包含了如何正确地使用二分做了总结。二分还是非常重要的，之前面试的时候遇到的最多的就是二分的题目，希望能引起重视。</p>
+<h3 id="吃掉-N-个橘子的最少天数"><a href="#吃掉-N-个橘子的最少天数" class="headerlink" title="吃掉 N 个橘子的最少天数"></a><a href="https://leetcode-cn.com/contest/weekly-contest-202/problems/minimum-number-of-days-to-eat-n-oranges/" target="_blank" rel="noopener">吃掉 N 个橘子的最少天数</a></h3><p>题意就是将N变为0的操作次数。</p>
+<h4 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h4><p><code>DFS</code>+记忆化递归。</p>
+<p>总的来说，每次<code>n</code>有三种变化方式:</p>
+<ol>
+<li>$n-1$</li>
+<li>$n/2$</li>
+<li>$n/3$</li>
+</ol>
+<p>明显采用方式1，n的减少速度最慢。但是不能说，能够除3就除3，能够除2就除2，否则-1。这里当n为10时，就是一个反例。但是我们可以通过有限次数的操作先将n变成3或者2的倍数，再进行除法。这样就有了下面的记忆化递归。</p>
+<h4 id="代码示例-3"><a href="#代码示例-3" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> n,<span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &amp;dp)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(dp.<span class="built_in">find</span>(n) != dp.<span class="built_in">end</span>()) <span class="keyword">return</span> dp[n];</span><br><span class="line">        dp[n] = n;</span><br><span class="line">        dp[n] = <span class="built_in">min</span>(dp[n],(n%<span class="number">2</span>)+<span class="number">1</span>+dfs((n-(n%<span class="number">2</span>))/<span class="number">2</span>,dp));	<span class="comment">// 先变为2的倍数，再除2</span></span><br><span class="line">        dp[n] = <span class="built_in">min</span>(dp[n],(n%<span class="number">3</span>)+<span class="number">1</span>+dfs((n-(n%<span class="number">3</span>))/<span class="number">3</span>,dp));	<span class="comment">// 先变为3的倍数，再除3</span></span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minDays</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; dp;	<span class="comment">// 记忆化</span></span><br><span class="line">        <span class="keyword">return</span> dfs(n,dp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里我把我TLE的代码也贴出来:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span> <span class="comment">// TLE的代码</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> n,<span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &amp;dp)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(dp.<span class="built_in">find</span>(n) != dp.<span class="built_in">end</span>()) <span class="keyword">return</span> dp[n];</span><br><span class="line">        dp[n] = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">if</span>(n%<span class="number">2</span>==<span class="number">0</span>) dp[n] = <span class="built_in">min</span>(dp[n],<span class="number">1</span>+dfs(n/<span class="number">2</span>,dp));</span><br><span class="line">        <span class="keyword">if</span>(n%<span class="number">3</span>==<span class="number">0</span>) dp[n] = <span class="built_in">min</span>(dp[n],<span class="number">1</span>+dfs(n/<span class="number">3</span>,dp));</span><br><span class="line">        dp[n] = <span class="built_in">min</span>(dp[n],<span class="number">1</span>+dfs(n<span class="number">-1</span>,dp));	<span class="comment">// 这里使得复杂度为O(n)</span></span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minDays</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; dp;</span><br><span class="line">        <span class="keyword">return</span> dfs(n,dp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面TLE的代码是完全按照题意写的。仔细分析一下就可以将<code>-1</code>这种操作方式给省略掉。比如</p>
+<blockquote>
+<p>dp[n] = n</p>
+</blockquote>
+<p>第一种操作的实现隐藏在下面代码中(以除以2为例):</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[n] = <span class="built_in">min</span>(dp[n],(n%<span class="number">2</span>)+<span class="number">1</span>+dfs((n-(n%<span class="number">2</span>))/<span class="number">2</span>,dp));	<span class="comment">// 先变为2的倍数，再除2</span></span><br></pre></td></tr></table></figure>
+<p>这里用先减去<code>n%2</code>变成2的倍数，再执行除2.把除2放在一边，减去<code>n%2</code>操作就包含了方式一的减1操作了，因此这样的代码是正确的、同时又避免了每次减1的O(n)复杂度的代码了。</p>
+<p>这样优化的代码我遇到地还比较少，TLE了一次。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>题目还是挺简单的，难度不大，好多高手在10分钟以内就搞定了，真的厉害👍。</p>
+<ol>
+<li>暴力枚举</li>
+<li>数学</li>
+<li>二分+贪心</li>
+<li>记忆化递归</li>
+</ol>
+<p>第1、2题很容易，按照题意求解即可。第3题有好多类似的二分题目，见过的话也能很快搞定。第4题的记忆化递归要稍微的分析一下，代码难度小，边界条件也很容易，难度不大。第4题TLE了一次。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BA%8C%E5%88%86/" rel="tag"># 二分</a>
+              <a href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E9%80%92%E5%BD%92/" rel="tag"># 记忆化递归</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/10/%E5%8A%9B%E6%89%A3%E5%91%A8%E8%B5%9B201/" rel="prev" title="力扣周赛201">
+      <i class="fa fa-chevron-left"></i> 力扣周赛201
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#存在连续三个奇数的数组"><span class="nav-number">1.</span> <span class="nav-text">存在连续三个奇数的数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">1.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码示例"><span class="nav-number">1.2.</span> <span class="nav-text">代码示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使数组中所有元素相等的最小操作数"><span class="nav-number">2.</span> <span class="nav-text">使数组中所有元素相等的最小操作数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-1"><span class="nav-number">2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码示例-1"><span class="nav-number">2.2.</span> <span class="nav-text">代码示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两球之间的磁力"><span class="nav-number">3.</span> <span class="nav-text">两球之间的磁力</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-2"><span class="nav-number">3.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码示例-2"><span class="nav-number">3.2.</span> <span class="nav-text">代码示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#吃掉-N-个橘子的最少天数"><span class="nav-number">4.</span> <span class="nav-text">吃掉 N 个橘子的最少天数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-3"><span class="nav-number">4.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码示例-3"><span class="nav-number">4.2.</span> <span class="nav-text">代码示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Koala Xu</p>
+  <div class="site-description" itemprop="description">博观而约取，厚积而博发</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xyqkoala" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xyqkoala" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xyq_lawrence@163.com" title="E-Mail → mailto:xyq_lawrence@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Koala Xu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
